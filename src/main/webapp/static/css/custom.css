@@ -60,3 +60,15 @@
 {
     margin: 0 0 11px;
 }
+
+#filter-card
+{
+    font-size: 1.3em;
+    width: 10%;
+    position: fixed;
+    z-index: 1;
+    top: 21%;
+    left: 1%;
+    background-color: #ffffff;
+    overflow-x: hidden;
+}
