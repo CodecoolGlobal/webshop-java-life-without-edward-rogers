@@ -38,48 +38,7 @@
 
 <body>
 
-<div class="jumbotron text-center">
-
-
-    <!-- Navigation bar with cart -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Shop</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link1</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link2</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link3</a>
-                </li>
-            </ul>
-        </div>
-        <div class="mx-auto order-0">
-            <a class="navbar-brand mx-auto" href="/">Codecool Shop</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/cart">
-                        <div th:switch="${cartListLength}">
-                            <span class="cart-size" th:case="0"></span>
-                            <span class="cart-size cart-items" th:case="*" th:text="${cartListLength}"></span>
-                        </div>
-                        <i class="fas fa-shopping-basket"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</div>
+<div th:replace="header.html"></div>
 
 <div id="filter-card">
     <form action="/" method="get">
