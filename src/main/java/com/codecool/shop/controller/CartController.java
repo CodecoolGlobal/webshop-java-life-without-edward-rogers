@@ -26,6 +26,10 @@ public class CartController extends HttpServlet {
         engine.process("product/cart.html", context, resp.getWriter());
     }
 
+    /**
+     * Calculate the total sum price of the products in the cart
+     * @return - A double of the total price
+     */
     private double calculateTotalSum() {
         double sum = 0;
         for (Product product : Cart.getProductsInCart()){
