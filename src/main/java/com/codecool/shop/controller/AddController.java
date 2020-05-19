@@ -1,6 +1,5 @@
 package com.codecool.shop.controller;
 
-
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
@@ -22,6 +21,17 @@ public class AddController extends HttpServlet {
         int productId = Integer.parseInt(req.getParameter("id"));
         ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
         List<Product> products = productDaoMem.getAll();
+
+        addToCartList(productId, products);
+
+    }
+
+    /**
+     * Add product to cart List according to product id.
+     * @param productId - Received from GET method.
+     * @param products - New cart's list.
+     */
+    public void addToCartList(int productId, List<Product> products){
         ArrayList<Product> productsInCart = Cart.getProductsInCart();
         for(Product product: products){
             if(product.getId() == productId){
@@ -29,7 +39,6 @@ public class AddController extends HttpServlet {
             }
         }
         Cart.setProductsInCart(productsInCart);
-        System.out.println(Cart.getProductsInCart());
     }
 }
 
