@@ -38,16 +38,33 @@
 
 <div id="filter-card">
     <form action="/" method="get">
+        <h5>Categories: </h5>
         <div th:each="category, iterStat : ${allCategory}">
             <input type="checkbox" th:name="${category.name}"  th:value="${category.id}" th:text=" ${category.name}"><br>
         </div>
-        <input type="submit" value="Filter">
+        <br>
+        <h5>Suppliers: </h5>
+        <div th:each="supplier, iterStat : ${allSupplier}">
+            <input type="checkbox" th:name="${supplier.name}"  th:value="${supplier.id}" th:text=" ${supplier.name}"><br>
+        </div>
+        <br><input class="btn btn-secondary" type="submit" value="Filter">
     </form>
 </div>
 
 <div class="container">
     <div class="card">
-        <strong th:text="${categories}">Category Title</strong>
+        <strong th:switch="${categories}">
+            <span th:case="''">All Products</span>
+            <span th:case="'Empty'"></span>
+            <span th:case="'No'">No Item Found For That Filter</span>
+            <span th:case="'Not Found'">No Item Found For That Filter</span>
+            <span th:case="*" th:text="'Categories: '+ ${categories}"></span>
+        </strong>
+        <strong th:switch="${suppliers}">
+            <span th:case="''"></span>
+            <span th:case="'No'">No Item Found For That Filter</span>
+            <span th:case="*" th:text="'Suppliers: '+ ${suppliers}"></span>
+        </strong>
     </div>
 
     <div id="products" class="row">
