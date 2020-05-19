@@ -63,11 +63,11 @@
 
 #filter-card
 {
-    font-size: 1.3em;
-    width: 10%;
-    position: fixed;
+    font-size: 1em;
+    width: 11%;
+    position: absolute;
     z-index: 1;
-    top: 21%;
+    top: 42%;
     left: 1%;
     background-color: #ffffff;
     overflow-x: hidden;
