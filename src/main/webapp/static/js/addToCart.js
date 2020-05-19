@@ -11,7 +11,7 @@ function addToCart(buttons, cartListPlaces) {
 
 function apiFetch(parameter) {
     fetch(`/add-product?id=${parameter}`)
-        .then(response => response.json())
+        //.then(response => response.json())
         .then(data => data);
 }
 
