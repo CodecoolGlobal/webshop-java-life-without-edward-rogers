@@ -27,19 +27,64 @@
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- End of Bootstrap components -->
 
+    <!-- fontawesome script -->
+    <script src="https://kit.fontawesome.com/80c95c391e.js" crossorigin="anonymous"></script>
+
+    <!--JavaScript for add to chart-->
+    <script src="/static/js/addToCart.js" defer></script>
+
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
 
 <body>
 
 <div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
+
+
+    <!-- Navigation bar with cart -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link2</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link3</a>
+                </li>
+            </ul>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto" href="/">Codecool Shop</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/cart">
+                        <div th:switch="${cartListLength}">
+                            <span class="cart-size" th:case="0"></span>
+                            <span class="cart-size cart-items" th:case="*" th:text="${cartListLength}"></span>
+                        </div>
+                        <i class="fas fa-shopping-basket"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </div>
 
 <div id="filter-card">
     <form action="/" method="get">
         <div th:each="category, iterStat : ${allCategory}">
-            <input type="checkbox" th:name="${category.name}"  th:value="${category.id}" th:text=" ${category.name}"><br>
+            <input type="checkbox" th:name="${category.name}" th:value="${category.id}" th:text=" ${category.name}"><br>
         </div>
         <input type="submit" value="Filter">
     </form>
@@ -64,7 +109,7 @@
                         <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                     </div>
                     <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
+                        <button th:data-id="${prod.id}" class="btn btn-success add-button">Add to cart</button>
                     </div>
                 </div>
             </div>
