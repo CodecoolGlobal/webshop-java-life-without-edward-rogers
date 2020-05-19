@@ -27,18 +27,40 @@ public class AddController extends HttpServlet {
     }
 
     /**
-     * Add product to cart List according to product id.
-     * @param productId - Received from GET method.
-     * @param products - New cart's list.
+     * Add product to cart by id
+     * @param productId - id of the product
+     * @param products - List of all product that shop has
      */
-    public void addToCartList(int productId, List<Product> products){
+    public void addToCartList(int productId, List<Product> products) {
         ArrayList<Product> productsInCart = Cart.getProductsInCart();
-        for(Product product: products){
-            if(product.getId() == productId){
-                productsInCart.add(product);
+        for (Product product : products) {
+            if (product.getId() == productId) {
+                raiseQuantityOrAdd(productId, productsInCart, product);
             }
         }
         Cart.setProductsInCart(productsInCart);
     }
+
+    /**
+     * Checks if product is in cart list. We will use this to print out proper data in /cart route.
+     * If yes, we raise the quantity of product in list, if not, we add product to list.
+     * @param productId - ID of added product.
+     * @param productsInCart - Products in user's list.
+     * @param product - Product in store.
+     */
+    public void raiseQuantityOrAdd(int productId, List<Product> productsInCart, Product product) {
+        boolean changeHappened = false;
+        for (Product storedProduct : productsInCart) {
+            if (storedProduct.getId() == productId) {
+                storedProduct.setQuantity(storedProduct.getQuantity() + 1);
+                changeHappened = true;
+            }
+        }
+        if (!changeHappened) {
+            product.setQuantity(product.getQuantity() + 1);
+            productsInCart.add(product);
+        }
+    }
+
 }
 
