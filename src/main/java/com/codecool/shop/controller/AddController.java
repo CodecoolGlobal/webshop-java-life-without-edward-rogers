@@ -21,17 +21,33 @@ public class AddController extends HttpServlet {
         int productId = Integer.parseInt(req.getParameter("id"));
         ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
         List<Product> products = productDaoMem.getAll();
+        checkGetMethodParameters(req, productId, products);
 
-        addToCartList(productId, products);
+    }
+    /**
+     *Choose to change quantity (add or remove) or add a new one (or increase the quantity).
+     *
+     * @param request - HttpServletRequest.
+     * @param productId - The id of the product to change quantity.
+     * @param products - Product in store.
+     */
+    private void checkGetMethodParameters(HttpServletRequest request, int productId, List<Product> products) {
+        if(request.getParameter("quantity") != null){
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            changeQuantity(productId, quantity);
+        } else {
+            addToCartList(productId, products);
+        }
 
     }
 
     /**
      * Add product to cart by id
+     *
      * @param productId - id of the product
-     * @param products - List of all product that shop has
+     * @param products  - List of all product that shop has
      */
-    public void addToCartList(int productId, List<Product> products) {
+    private void addToCartList(int productId, List<Product> products) {
         ArrayList<Product> productsInCart = Cart.getProductsInCart();
         for (Product product : products) {
             if (product.getId() == productId) {
@@ -44,11 +60,12 @@ public class AddController extends HttpServlet {
     /**
      * Checks if product is in cart list. We will use this to print out proper data in /cart route.
      * If yes, we raise the quantity of product in list, if not, we add product to list.
-     * @param productId - ID of added product.
+     *
+     * @param productId      - ID of added product.
      * @param productsInCart - Products in user's list.
-     * @param product - Product in store.
+     * @param product        - Product in store.
      */
-    public void raiseQuantityOrAdd(int productId, List<Product> productsInCart, Product product) {
+    private void raiseQuantityOrAdd(int productId, List<Product> productsInCart, Product product) {
         boolean changeHappened = false;
         for (Product storedProduct : productsInCart) {
             if (storedProduct.getId() == productId) {
@@ -59,6 +76,26 @@ public class AddController extends HttpServlet {
         if (!changeHappened) {
             product.setQuantity(product.getQuantity() + 1);
             productsInCart.add(product);
+        }
+    }
+
+    /**
+     * Change the quantity of the selected product to a custom quantity
+     * @param productId - Id of the selected product
+     * @param quantity - Custom quantity for the change
+     */
+    private void changeQuantity(int productId, int quantity) {
+        ArrayList<Product> cartList = new ArrayList<>();
+        cartList.addAll(Cart.getProductsInCart());
+        for (Product product : cartList) {
+            if (product.getId() == productId) {
+                product.setQuantity(quantity);
+                if (quantity == 0) {
+                    ArrayList<Product> newCartList = Cart.getProductsInCart();
+                    newCartList.remove(product);
+                    Cart.setProductsInCart(newCartList);
+                }
+            }
         }
     }
 
