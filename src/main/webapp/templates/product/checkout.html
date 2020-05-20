@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>Checkout</title>
+
+    <!-- Bootstrap components -->
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!--Latest compiled and minified Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- End of Bootstrap components -->
+
+    <!-- fontawesome script -->
+    <script src="https://kit.fontawesome.com/80c95c391e.js" crossorigin="anonymous"></script>
+    <script src="/static/js/checkout.js" defer></script>
+
+    <!--JavaScript-->
+    <script></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
+</head>
+<body>
+<div class="checkout-card">
+    <form action="/save-order-details" method="post">
+        <label for="name">Name</label><br>
+        <input type="text" id="name" name="inputName" required><br>
+        <label for="email">E-mail</label><br>
+        <input type="text" id="email" name="inputEmail" required><br>
+        <label for="phone">Telephone number</label><br>
+        <input type="text" id="phone" name="inputPhone" required><br>
+        <div class="billing-card">
+            <div style="text-align: center">
+                <label>Billing address</label><br>
+            </div>
+            <input type="text" id="country" name="inputCountryB" placeholder="Country Name" required><br>
+            <input type="text" id="city" name="inputCityB" placeholder="City" required><br>
+            <input type="text" id="zip" name="inputZipB" placeholder="Zipcode" required><br>
+            <textarea class="fill-div" rows="3" cols="20" id="address" name="inputAddressB"
+                      placeholder="123 Main Street, New York"
+                      required></textarea><br>
+        </div>
+        <div class="shipping-card">
+            <div style="text-align: center">
+                <label>Shipping address</label><br>
+            </div>
+            <input type="text" id="countryS" name="inputCountryS" placeholder="Country Name" required><br>
+            <input type="text" id="cityS" name="inputCityS" placeholder="City" required><br>
+            <input type="text" id="zipS" name="inputZipS" placeholder="Zipcode" required><br>
+            <textarea class="fill-div" rows="3" cols="20" id="addressS" name="inputAddressS"
+                      placeholder="123 Main Street, New York"
+                      required></textarea>
+        </div>
+        <label for="fill-or-delete"><input type="checkbox" id="fill-or-delete" class value="unchecked">Shipping address is the same as Billing address.</label><br>
+        <button class="btn btn-info" type="submit">Continue</button>
+    </form>
+</div>
+</body>
+</html>

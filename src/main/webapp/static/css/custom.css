@@ -73,6 +73,56 @@
     overflow-x: hidden;
 }
 
+.checkout-card
+{
+    text-align:center;
+    font-size: 1em;
+    position: absolute;
+    z-index: 1;
+    top: 2%;
+    left: 25%;
+    width: 50%;
+    height:90%;
+    border-radius:15px;
+    background-color: gray;
+    overflow-x: hidden;
+}
+
+.billing-card
+{
+    width: auto;
+
+    display:inline-block;
+    margin: 3%;
+    z-index: 1;
+    top: 42%;
+    left: 5%;
+    text-align: left;
+    border-radius:10px;
+    background-color: blue;
+    overflow-x: hidden;
+}
+
+.shipping-card
+{
+    width: auto;
+
+    display:inline-block;
+    margin: 3%;
+    text-align: left;
+    border-radius:10px;
+    background-color: cadetblue;
+    overflow-x: hidden;
+}
+
+
+.fill-div {
+    width: 100%;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
 .cart-items
 {
     background-color: white;
