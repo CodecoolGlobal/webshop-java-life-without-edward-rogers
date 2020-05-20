@@ -3,13 +3,14 @@ package com.codecool.shop.model;
 import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
 
 public class Order {
 
     private int id;
     private String name;
     private String email;
-    private int phoneNumber;
+    private long phoneNumber;
     private String billingCountry;
     private String billingCity;
     private int billingZip;
@@ -26,7 +27,7 @@ public class Order {
                  String inputZipS, String inputAddressS, ArrayList<Product> products) {
         this.name = inputName;
         this.email = inputEmail;
-        this.phoneNumber = parseInt(inputPhone);
+        this.phoneNumber = parseLong(inputPhone);
         this.billingCountry = inputCountryB;
         this.billingCity = inputCityB;
         this.billingZip = parseInt(inputZipB);
