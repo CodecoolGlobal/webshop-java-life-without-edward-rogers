@@ -32,4 +32,17 @@ public class Cart extends BaseModel {
     public Cart(String name, String description) {
         super(name, description);
     }
+
+
+    /**
+     * Returns the actual size of cart's list.
+     * @return Size of cart's list.
+     */
+    public static int getCartListSize(){
+        int sum = 0;
+        for(Product product: Cart.getProductsInCart()){
+            sum += product.getQuantity();
+        }
+        return sum;
+    }
 }
