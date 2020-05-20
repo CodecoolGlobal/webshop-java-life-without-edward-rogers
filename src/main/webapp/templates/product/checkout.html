@@ -29,15 +29,17 @@
 
     <!-- fontawesome script -->
     <script src="https://kit.fontawesome.com/80c95c391e.js" crossorigin="anonymous"></script>
-    <script src="/static/js/checkout.js" defer></script>
 
     <!--JavaScript-->
-    <script></script>
+    <script src="/static/js/checkout.js" defer></script>
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
 <body>
-<div class="checkout-card">
+
+<div th:replace="header.html"></div>
+
+<div class="card-at-the-center">
     <form action="/save-order-details" method="post">
         <label for="name">Name</label><br>
         <input type="text" id="name" name="inputName" required><br>
