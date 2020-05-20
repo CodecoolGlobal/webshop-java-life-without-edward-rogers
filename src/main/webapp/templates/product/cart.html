@@ -31,7 +31,7 @@
     <script src="https://kit.fontawesome.com/80c95c391e.js" crossorigin="anonymous"></script>
 
     <!--JavaScript-->
-    <script></script>
+    <script src="/static/js/editCart.js" defer></script>
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
@@ -47,11 +47,11 @@
                 <td><img class="" src="http://placehold.it/400x250/000/fff"
                          th:attr="src='/static/img/product_' + ${product.id} + '.jpg'" alt=""/></td>
                 <td th:text="${product.name}"></td>
-                <td th:text="${product.price}"></td>
-                <td th:text="${product.quantity}"></td>
+                <td  class="price" th:data-default-price="${product.defaultPrice}" th:data-id="${product.id}" th:text="${product.price}"></td>
+                <td class="quantity" th:data-id="${product.id}" th:text="${product.quantity}"></td>
                 <td>
-                    <div th:with="subTotal = ${product.quantity * product.defaultPrice}">
-                        <span th:text="'Subtotal: ' + ${#numbers.formatDecimal(subTotal, 2, 2)} + ${product.getDefaultCurrency()}"></span>
+                    <div  th:with="subTotal = ${product.quantity * product.defaultPrice}">
+                        <span class="subtotal" th:data-id="${product.id}" th:text="'Subtotal: ' + ${#numbers.formatDecimal(subTotal, 2, 2)} + ${product.getDefaultCurrency()}"></span>
                     </div>
                 </td>
 
@@ -59,7 +59,8 @@
         </tbody>
     </table>
 
-    <div th:text="'Total value: ' + ${#numbers.formatDecimal(totalPrice, 2, 2)} + ' $'"></div>
+    <div  class="total" th:text="'Total value: ' + ${#numbers.formatDecimal(totalPrice, 2, 2)} + ' $'"></div>
+
 </div>
 
 <div th:replace="footer.html :: copy"></div>
