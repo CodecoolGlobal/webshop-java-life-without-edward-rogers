@@ -54,12 +54,12 @@
                         <span th:text="'Subtotal: ' + ${#numbers.formatDecimal(subTotal, 2, 2)} + ${product.getDefaultCurrency()}"></span>
                     </div>
                 </td>
-
             </tr>
         </tbody>
     </table>
-
     <div th:text="'Total value: ' + ${#numbers.formatDecimal(totalPrice, 2, 2)} + ' $'"></div>
+    <br>
+    <button><a href="/checkout">Checkout</a></button>
 </div>
 
 <div th:replace="footer.html :: copy"></div>
