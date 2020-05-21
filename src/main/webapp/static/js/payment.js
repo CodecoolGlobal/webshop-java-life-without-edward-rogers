@@ -32,40 +32,17 @@ function payWithCreditCard(payContainer) {
 
         selectOptions += `<label  for="month">Month:</label><select class="month-label" id='month'>`;
         for (let month = 1; month <= 12; month++) {
-            selectOptions +=       `<option value="${month}">${month}</option>`;
+            selectOptions += `<option value="${month}">${month}</option>`;
         }
 
-
-
-
-
-
-        
-<<<<<<< HEAD
-        selectOptions +=           `</select><br><label for="year">Year:</label><select id="year">`;
+        selectOptions += `</select><br><label for="year">Year:</label><select id="year">`;
         for (let year = thisYear; year < thisYear + 6; year++) {
-            selectOptions +=       `<option value="${year}">${year}</option>`;
-        }
-        selectOptions += `          </select><br>
-                                    <label for="CVC">CVC:</label>
-                                    <input type='password' id='CVC' maxlength="3" required><br>
-                                    <button type="submit">Pay</button>
-=======
-        selectOptions +=
-            `</select><label  for="year">Year:</label><select id="year">`;
-        let d = new Date();
-        let n = d.getFullYear();
-        for (let year = n; year < n + 6; year++) {
             selectOptions += `<option value="${year}">${year}</option>`;
         }
-        selectOptions += `</select><br>`;
-
-
-        selectOptions += `
-        <label for="CVC">CVC:</label><br>
-                <input type='password' id='CVC' maxlength="3" required><br>
+        selectOptions += `          </select><br>
+                                    <label for="CVC">CVC:</label><br>
+                                    <input type='password' id='CVC' maxlength="3" required><br>
                                     <button style="margin: 1%" type="submit">Pay</button>
->>>>>>> feature/style
                                     </form>`;
         payContainer.innerHTML += selectOptions;
     })

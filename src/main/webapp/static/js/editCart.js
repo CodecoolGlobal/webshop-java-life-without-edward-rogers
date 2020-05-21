@@ -79,8 +79,8 @@ function setCheckoutButton() {
     let cont = document.querySelector("#checkout");
     let totalInt = parseInt(total.slice(13, -2));
     cont.innerHTML = (totalInt === 0) ?
-        `<button><a id="disabled-link" href="/checkout">Checkout</a></button>` :
-        `<button><a href="/checkout">Checkout</a></button>`;
+        `<button class="btn btn-success"><a id="disabled-link" href="/checkout" style="color: white">Checkout</a></button>` :
+        `<button class="btn btn-success"><a href="/checkout" style="color: white">Checkout</a></button>`;
 }
 
 function main() {
