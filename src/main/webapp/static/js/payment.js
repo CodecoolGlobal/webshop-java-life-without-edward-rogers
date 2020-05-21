@@ -1,7 +1,7 @@
 function payWithPayPal(payContainer) {
-    clearContainer(payContainer);
     let payPalButton = document.querySelector("#paypal");
     payPalButton.addEventListener('click', function () {
+        clearContainer();
         payContainer.innerHTML = `<form action="/" method="get">
                                 <label for="email">Email:</label>
                                 <input type='email' id="email" required><br>
@@ -13,9 +13,9 @@ function payWithPayPal(payContainer) {
 }
 
 function payWithCreditCard(payContainer) {
-    clearContainer(payContainer);
     let creditCardButton = document.querySelector("#credit-card");
     creditCardButton.addEventListener('click', function (event) {
+        clearContainer();
         let selectOptions = `
                                     <form action="/" method="get">
                                     <label for="card-number">Card number:</label>
@@ -46,8 +46,8 @@ function payWithCreditCard(payContainer) {
     })
 }
 
-function clearContainer(payContainer) {
-    payContainer.innerHTML = '';
+function clearContainer() {
+    document.getElementById("payment-container").innerHTML = ' ';
 }
 
 function main() {

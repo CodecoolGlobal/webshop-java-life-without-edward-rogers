@@ -43,8 +43,9 @@
         <img id="paypal" src="/static/img/paypalicon.jpg" alt="paypay">
         <img id="credit-card" src="/static/img/creditcardicon.jpg" alt="credit card">
     </div>
-    <div id="payment-container">
-
+    <div id="payment-container"></div>
+    <div>
+        <p id="total-price" th:text="'Total value: ' + ${#numbers.formatDecimal(TotalPrice, 2, 2)} + ' $'"></p>
     </div>
 </div>
 

@@ -20,6 +20,8 @@ public class PayController  extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("cartListLength", Cart.getCartListSize());
+        context.setVariable("TotalPrice",Cart.getCartPrice());
         engine.process("product/payment.html", context, resp.getWriter());
     }
+
 }

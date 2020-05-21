@@ -59,7 +59,10 @@
     </table>
     <div  class="total" th:text="'Total value: ' + ${#numbers.formatDecimal(totalPrice, 2, 2)} + ' $'"></div>
     <br>
-    <button><a href="/checkout">Checkout</a></button>
+    <div id ="checkout">
+        <p>Checkout</p>
+    </div>
+
 </div>
 
 <div th:replace="footer.html :: copy"></div>

@@ -45,4 +45,17 @@ public class Cart extends BaseModel {
         }
         return sum;
     }
+
+    /**
+     * Returns the actual price of cart.
+     * @return Price of cart.
+     */
+
+    public static float getCartPrice(){
+        float price = (float) 0.0;
+        for(Product product: Cart.getProductsInCart()){
+             price += product.getDefaultPrice() * product.getQuantity();
+        }
+        return price;
+    }
 }

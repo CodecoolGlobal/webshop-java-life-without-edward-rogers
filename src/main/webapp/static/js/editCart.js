@@ -14,7 +14,9 @@ function editQuantity(quantitiesOfProducts) {
                         countTotal();
                         apiFetch(quantity.dataset.id, quantity.innerHTML);
                         removeItemIfNull(quantity);
+                        setCheckoutButton();
                     } else if (event.key === 'Escape') {
+                        setCheckoutButton();
                         quantity.innerHTML = oldQuantityContent;
                     }
                 })
@@ -72,10 +74,31 @@ function countTotal() {
     sum = parseFloat(sum).toFixed(2);
     total.innerHTML = `Total value: ${sum} $`;
 }
+function setCheckoutButton() {
+    let sum = 0;
+    let cont = document.querySelector("#checkout");
+    let subtotals = document.querySelectorAll(".subtotal");
+    for (let subtotal of subtotals) {
+        let number = subtotal.innerHTML.slice(10, -3);
+        sum += parseFloat(number.replace(",", "."));
+    }
+    if (sum === 0){
+        cont.innerHTML = " <p>Checkout</p>";
+
+    }
+    else {
+        cont.innerHTML = '<button><a href="/checkout">Checkout</a></button>';
+    }
+
+
+
+}
 
 function main() {
+    setCheckoutButton();
     let quantitiesOfProducts = document.querySelectorAll(".quantity");
     editQuantity(quantitiesOfProducts);
+
 }
 
 main();
