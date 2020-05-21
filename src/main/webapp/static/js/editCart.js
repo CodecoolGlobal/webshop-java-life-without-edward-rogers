@@ -4,7 +4,7 @@ function editQuantity(quantitiesOfProducts) {
             let oldQuantityContent = quantity.innerHTML;
             let newQuantityElement = document.querySelector('#input');
             if (newQuantityElement == null) {
-                quantity.innerHTML = `<input type="text" autocomplete="off" value="${oldQuantityContent}" id="input">`;
+                quantity.innerHTML = `<input type="number" autocomplete="off" value="${oldQuantityContent}" min="0" class="quantity-input" id="input">`;
                 newQuantityElement = document.querySelector('#input');
                 newQuantityElement.addEventListener('keydown', function (event) {
                     if (event.key === 'Enter') {
@@ -57,7 +57,7 @@ function countAndChangeSubtotal(id, quantity) {
     }
     for (let subTotal of subTotals) {
         if (subTotal.dataset.id === id) {
-            subTotal.innerHTML = "Subtotal: " + String(newSubtotalPrice) + "USD";
+            subTotal.innerHTML = String(newSubtotalPrice) + "USD";
         }
     }
 }
@@ -67,7 +67,7 @@ function countTotal() {
     let total = document.querySelector(".total");
     let subtotals = document.querySelectorAll(".subtotal");
     for (let subtotal of subtotals) {
-        let number = subtotal.innerHTML.slice(10, -3);
+        let number = subtotal.innerHTML.slice(0, -3);
         sum += parseFloat(number.replace(",", "."));
     }
     sum = parseFloat(sum).toFixed(2);

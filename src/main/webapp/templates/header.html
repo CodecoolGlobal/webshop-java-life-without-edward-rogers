@@ -2,25 +2,10 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div class="jumbotron text-center">
+<div class="jumbotron text-center" style="padding-left: 0; !important; padding-bottom: 5%; !important;">
     <!-- Navigation bar with cart -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Shop</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link1</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link2</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link3</a>
-                </li>
-            </ul>
-        </div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky" >
+
         <div class="mx-auto order-0">
             <a class="navbar-brand mx-auto" href="/">Codecool Shop</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
@@ -34,8 +19,9 @@
                         <div th:switch="${cartListLength}">
                             <span class="cart-size" th:case="0"></span>
                             <span class="cart-size cart-items" th:case="*" th:text="${cartListLength}"></span>
+                            <span><i class="fas fa-shopping-basket"></i></span>
                         </div>
-                        <i class="fas fa-shopping-basket"></i>
+
                     </a>
                 </li>
             </ul>
