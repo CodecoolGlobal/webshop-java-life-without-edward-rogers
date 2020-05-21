@@ -10,7 +10,7 @@ function editQuantity(quantitiesOfProducts) {
                     if (event.key === 'Enter') {
                         quantity.innerHTML = newQuantityElement.value;
                         changeCartNumberSize(quantitiesOfProducts);
-                        countSubtotal(quantity.dataset.id, quantity);
+                        countAndChangeSubtotal(quantity.dataset.id, quantity);
                         countTotal();
                         apiFetch(quantity.dataset.id, quantity.innerHTML);
                         removeItemIfNull(quantity);
@@ -24,7 +24,6 @@ function editQuantity(quantitiesOfProducts) {
         })
     }
 }
-
 
 function apiFetch(id, quantity) {
     fetch(`/add-product?id=${id}&quantity=${quantity}`)
@@ -46,7 +45,7 @@ function changeCartNumberSize(quantity) {
     cartIconNumber.innerHTML = String(sum);
 }
 
-function countSubtotal(id, quantity) {
+function countAndChangeSubtotal(id, quantity) {
     let prices = document.querySelectorAll(".price");
     let subTotals = document.querySelectorAll(".subtotal");
     let newSubtotalPrice;
@@ -74,24 +73,14 @@ function countTotal() {
     sum = parseFloat(sum).toFixed(2);
     total.innerHTML = `Total value: ${sum} $`;
 }
+
 function setCheckoutButton() {
-    let sum = 0;
+    let total = document.querySelector(".total").innerHTML;
     let cont = document.querySelector("#checkout");
-    let subtotals = document.querySelectorAll(".subtotal");
-    for (let subtotal of subtotals) {
-        let number = subtotal.innerHTML.slice(10, -3);
-        sum += parseFloat(number.replace(",", "."));
-    }
-    if (sum === 0){
-        cont.innerHTML = " <p>Checkout</p>";
-
-    }
-    else {
-        cont.innerHTML = '<button><a href="/checkout">Checkout</a></button>';
-    }
-
-
-
+    let totalInt = parseInt(total.slice(13, -2));
+    cont.innerHTML = (totalInt === 0) ?
+        `<button><a id="disabled-link" href="/checkout">Checkout</a></button>` :
+        `<button><a href="/checkout">Checkout</a></button>`;
 }
 
 function main() {
