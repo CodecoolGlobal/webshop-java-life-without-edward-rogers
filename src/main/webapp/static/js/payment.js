@@ -9,7 +9,7 @@ function payWithPayPal(payContainer) {
                                 <input style="width: 80%;" type='email' id="email" required><br>
                                 <label for="password">Password:</label>
                                 <input style="width: 70%;" type='password' id="password"><br>
-                                <button style="margin: 1%" type="submit">Pay</button>
+                                <button style="margin: 2%" type="submit">Pay</button>
                                 </form>`;
     })
 }
@@ -42,7 +42,7 @@ function payWithCreditCard(payContainer) {
         selectOptions += `          </select><br>
                                     <label for="CVC">CVC:</label><br>
                                     <input type='password' id='CVC' maxlength="3" required><br>
-                                    <button style="margin: 1%" type="submit">Pay</button>
+                                    <button style="margin: 2%" type="submit">Pay</button>
                                     </form>`;
         payContainer.innerHTML += selectOptions;
     })
