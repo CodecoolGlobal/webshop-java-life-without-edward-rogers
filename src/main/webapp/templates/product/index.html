@@ -49,7 +49,7 @@
         <br>
         <h5>Suppliers: </h5>
         <div th:each="supplier, iterStat : ${allSupplier}">
-            <input type="checkbox" th:name="${supplier.name}"  th:value="${supplier.id}" th:text=" ${supplier.name}"><br>
+            <input type="checkbox" th:name="${supplier.name}" th:value="${supplier.id}" th:text=" ${supplier.name}"><br>
         </div>
         <br><input class="btn btn-secondary" type="submit" value="Filter">
     </form>
