@@ -18,12 +18,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.image.AreaAveragingScaleFilter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
@@ -47,9 +44,16 @@ public class ProductController extends HttpServlet {
 
         List<Product> products = filterProduct(req, supplierDataStore, productCategoryDataStore, productDataStore);
 
-
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        addVariablesToContext(context, productCategoryDataStore, products, supplierDataStore);
+
+        engine.process("product/index.html", context, resp.getWriter());
+    }
+
+    private void addVariablesToContext(WebContext context, ProductCategoryDao productCategoryDataStore,
+                                       List<Product> products, SupplierDao supplierDataStore){
         context.setVariable("allCategory", productCategoryDataStore.getAll());
         context.setVariable("allSupplier", supplierDataStore.getAll());
 
@@ -58,7 +62,6 @@ public class ProductController extends HttpServlet {
         context.setVariable("products", products);
 
         context.setVariable("cartListLength", Cart.getCartListSize());
-        engine.process("product/index.html", context, resp.getWriter());
     }
 
     /**
@@ -121,47 +124,72 @@ public class ProductController extends HttpServlet {
 
         List<Product> filteredByCategories = filterProductsByGivenCategories(request, productCategoryDataStore, productDataStore);
         List<Product> filteredBySuppliers = filterProductsByGivenSuppliers(request, supplierDataStore, productDataStore);
-
         List<Product> filteredProduct = new ArrayList<>();
 
         if (filteredByCategories.isEmpty() && filteredBySuppliers.isEmpty()) {
+            filteredProduct = showAllProducts(request, productDataStore);
 
-            if (request.getParameterNames().hasMoreElements()) {
-                categoryNames.delete(0, categoryNames.length());
-                supplierNames.delete(0, supplierNames.length());
-                addCategoryToCategoryNames("No");
-            }
-            filteredProduct = productDataStore.getAll();
         } else if (filteredByCategories.isEmpty()) {
-            filteredProduct.addAll(filteredBySuppliers);
-            categoryNames.delete(0, categoryNames.length());
-            addCategoryToCategoryNames("Empty");
-            if (requestForCategory) {
-                categoryNames.delete(0, categoryNames.length());
-                addCategoryToCategoryNames("Not Found");
-            }
+            showProductsBySuppliers(filteredProduct, filteredBySuppliers);
+
         } else if (filteredBySuppliers.isEmpty()) {
-            filteredProduct.addAll(filteredByCategories);
-            supplierNames.delete(0, supplierNames.length());
-            if (requestForSupplier) {
-                addSupplierToSupplierNames("No");
-            }
+            showProductsByCategories(filteredProduct, filteredByCategories);
+
         } else {
-            for (Product byCategory : filteredByCategories) {
-                for (Product bySupplier : filteredBySuppliers) {
-                    if (byCategory == bySupplier) {
-                        filteredProduct.add(byCategory);
-                    }
-                }
-                if (filteredProduct.isEmpty()) {
-                    filteredProduct = productDataStore.getAll();
-                    categoryNames.delete(0, categoryNames.length());
-                    supplierNames.delete(0, supplierNames.length());
-                    addCategoryToCategoryNames("No");
-                }
-            }
+            showFinalResultOfSearch(filteredProduct, filteredByCategories, filteredBySuppliers, productDataStore);
+
         }
         return filteredProduct;
+    }
+
+
+    private void showFinalResultOfSearch(List<Product> filteredProduct, List<Product> filteredByCategories,
+                                                  List<Product> filteredBySuppliers, ProductDao productDataStore){
+        for (Product byCategory : filteredByCategories) {
+            for (Product bySupplier : filteredBySuppliers) {
+                if (byCategory == bySupplier) {
+                    filteredProduct.add(byCategory);
+                }
+            }
+            if (filteredProduct.isEmpty()) {
+                filteredProduct = productDataStore.getAll();
+                deleteListsAndAddCategoryName();
+            }
+        }
+    }
+
+    private void showProductsByCategories(List<Product> filteredProduct, List<Product> filteredByCategories){
+        filteredProduct.addAll(filteredByCategories);
+        supplierNames.delete(0, supplierNames.length());
+        if (requestForSupplier) {
+            addSupplierToSupplierNames("No");
+        }
+    }
+
+    private void showProductsBySuppliers(List<Product> filteredProduct, List<Product> filteredBySuppliers){
+        filteredProduct.addAll(filteredBySuppliers);
+        deleteAndAddCategoryName("Empty");
+        if (requestForCategory) {
+            deleteAndAddCategoryName("Not found");
+        }
+    }
+
+    private List<Product> showAllProducts(HttpServletRequest request, ProductDao productDataStore){
+        if (request.getParameterNames().hasMoreElements()) {
+            deleteListsAndAddCategoryName();
+        }
+        return productDataStore.getAll();
+    }
+
+    private void deleteAndAddCategoryName(String categoryType){
+        categoryNames.delete(0, categoryNames.length());
+        addCategoryToCategoryNames(categoryType);
+    }
+
+    private void deleteListsAndAddCategoryName(){
+        categoryNames.delete(0, categoryNames.length());
+        supplierNames.delete(0, supplierNames.length());
+        addCategoryToCategoryNames("No");
     }
 
     /**

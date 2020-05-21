@@ -3,16 +3,16 @@
  * Replicates the content of Billing's Card towards the Shipping's Card.
  */
 function validate() {
+    let billingAddress = ["country", "city", "zip", "address"];
+    let shippingAddress = ["countryS", "cityS", "zipS", "addressS"];
     if (this.checked) {
-        document.getElementById("countryS").value = document.getElementById("country").value;
-        document.getElementById("cityS").value = document.getElementById("city").value;
-        document.getElementById("zipS").value = document.getElementById("zip").value;
-        document.getElementById("addressS").value = document.getElementById("address").value;
+        for(let addressElement = 0; addressElement < billingAddress.length; addressElement++){
+            document.getElementById(shippingAddress[addressElement]).value = document.getElementById(billingAddress[addressElement]).value;
+        }
     } else {
-        document.getElementById("countryS").value = "";
-        document.getElementById("cityS").value = "";
-        document.getElementById("zipS").value = "";
-        document.getElementById("addressS").value = "";
+        for(let element of shippingAddress){
+            document.getElementById(element).value = "";
+        }
     }
 }
 

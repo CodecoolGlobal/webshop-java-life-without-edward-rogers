@@ -131,3 +131,8 @@
     margin-right: 5px;
     padding: 2px;
 }
+
+#disabled-link {
+    pointer-events: none;
+    cursor: default;
+}

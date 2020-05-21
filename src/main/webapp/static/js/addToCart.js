@@ -6,12 +6,10 @@ function addToCart(buttons, cartListPlaces) {
             raiseCartListLength(cartListPlaces);
         })
     }
-
 }
 
 function apiFetch(parameter) {
     fetch(`/add-product?id=${parameter}`)
-        //.then(response => response.json())
         .then(data => data);
 }
 

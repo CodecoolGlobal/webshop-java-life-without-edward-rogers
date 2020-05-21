@@ -2,7 +2,6 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.model.Cart;
-import com.codecool.shop.model.Product;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -22,19 +21,7 @@ public class CartController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("cart", Cart.getProductsInCart());
         context.setVariable("cartListLength", Cart.getCartListSize());
-        context.setVariable("totalPrice", calculateTotalSum());
+        context.setVariable("totalPrice", Cart.getCartPrice());
         engine.process("product/cart.html", context, resp.getWriter());
-    }
-
-    /**
-     * Calculate the total sum price of the products in the cart
-     * @return - A double of the total price
-     */
-    private double calculateTotalSum() {
-        double sum = 0;
-        for (Product product : Cart.getProductsInCart()){
-            sum += product.getDefaultPrice() * product.getQuantity();
-        }
-        return sum;
     }
 }

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class Cart extends BaseModel {
     private static ArrayList<Product> productsInCart = new ArrayList<>();
-    /*private static int id;
-    private int personalId;*/
 
     /**
      * This will return a list which holds the products
@@ -50,9 +48,8 @@ public class Cart extends BaseModel {
      * Returns the actual price of cart.
      * @return Price of cart.
      */
-
-    public static float getCartPrice(){
-        float price = (float) 0.0;
+    public static double getCartPrice(){
+        double price = 0.0;
         for(Product product: Cart.getProductsInCart()){
              price += product.getDefaultPrice() * product.getQuantity();
         }

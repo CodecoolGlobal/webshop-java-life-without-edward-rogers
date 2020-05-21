@@ -19,7 +19,7 @@ public class Order {
     private String shippingCity;
     private int shippingZip;
     private String shippingAddress;
-    ArrayList<Product> products = new ArrayList<>();
+    ArrayList<Product> products;
 
 
     public Order(String inputName, String inputEmail, String inputPhone, String inputCountryB, String inputCityB,

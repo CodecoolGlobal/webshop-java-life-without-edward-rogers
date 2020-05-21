@@ -17,10 +17,11 @@ public class PayController  extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("cartListLength", Cart.getCartListSize());
-        context.setVariable("TotalPrice",Cart.getCartPrice());
+        context.setVariable("TotalPrice", Cart.getCartPrice());
         engine.process("product/payment.html", context, resp.getWriter());
     }
 
