@@ -51,12 +51,14 @@
         <div th:each="supplier, iterStat : ${allSupplier}">
             <input type="checkbox" th:name="${supplier.name}"  th:value="${supplier.id}" th:text=" ${supplier.name}"><br>
         </div>
+        <div style="text-align: center">
         <br><input class="btn btn-secondary" type="submit" value="Filter">
+        </div>
     </form>
 </div>
 
-<div class="container">
-    <div class="card">
+<div class="container-card card">
+    <div class="header-card card">
         <strong th:switch="${categories}">
             <span th:case="''">All Products</span>
             <span th:case="'Empty'"></span>
@@ -71,14 +73,16 @@
         </strong>
     </div>
 
-    <div id="products" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
+    <div id="products card">
+        <div class="product" th:each="prod,iterStat : ${products}">
             <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff"
+                <img class="product-image" src="http://placehold.it/400x250/000/fff"
                      th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
-                <div class="card-header">
-                    <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-                    <p class="card-text" th:text="${prod.description}">Product description... </p>
+                <div class="product-title">
+                    <h4 th:text="${prod.name}">Product name</h4>
+                </div>
+                <div class="product-description">
+                    <p th:text="${prod.description}">Product description... </p>
                 </div>
                 <div class="card-body">
                     <div class="card-text">
