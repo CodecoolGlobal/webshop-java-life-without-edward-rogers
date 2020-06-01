@@ -15,30 +15,38 @@ import java.util.List;
 
 @WebServlet(urlPatterns = {"/add-product"})
 public class AddController extends HttpServlet {
+
+    private Integer quantity;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        if ((req.getParameter("quantity")) == null){
+            quantity = null;
+        }else {
+            quantity = Integer.parseInt(req.getParameter("quantity"));
+        }
 
         int productId = Integer.parseInt(req.getParameter("id"));
         ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
         List<Product> products = productDaoMem.getAll();
-        checkGetMethodParameters(req, productId, products);
+        handleProductsInCart(quantity, productId, products);
+
 
     }
     /**
      *Choose to change quantity (add or remove) or add a new one (or increase the quantity).
      *
-     * @param request - HttpServletRequest.
+     * @param quantity - The amount of the product
      * @param productId - The id of the product to change quantity.
      * @param products - Product in store.
      */
-    private void checkGetMethodParameters(HttpServletRequest request, int productId, List<Product> products) {
-        if(request.getParameter("quantity") != null){
-            int quantity = Integer.parseInt(request.getParameter("quantity"));
+    private void handleProductsInCart(Integer quantity, int productId, List<Product> products) {
+        if(quantity != null ){
             changeQuantity(productId, quantity);
         } else {
             addToCartList(productId, products);
         }
-
     }
 
     /**

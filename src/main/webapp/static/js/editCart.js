@@ -1,27 +1,33 @@
 function editQuantity(quantitiesOfProducts) {
     for (let quantity of quantitiesOfProducts) {
-        quantity.addEventListener("dblclick", function (event) {
-            let oldQuantityContent = quantity.innerHTML;
-            let newQuantityElement = document.querySelector('#input');
-            if (newQuantityElement == null) {
-                quantity.innerHTML = `<input type="number" autocomplete="off" value="${oldQuantityContent}" min="0" class="quantity-input" id="input">`;
-                newQuantityElement = document.querySelector('#input');
-                newQuantityElement.addEventListener('keydown', function (event) {
-                    if (event.key === 'Enter') {
-                        quantity.innerHTML = newQuantityElement.value;
-                        changeCartNumberSize(quantitiesOfProducts);
-                        countAndChangeSubtotal(quantity.dataset.id, quantity);
-                        countTotal();
-                        apiFetch(quantity.dataset.id, quantity.innerHTML);
-                        removeItemIfNull(quantity);
-                        setCheckoutButton();
-                    } else if (event.key === 'Escape') {
-                        setCheckoutButton();
-                        quantity.innerHTML = oldQuantityContent;
-                    }
-                })
-            }
-        })
+        quantity.addEventListener("dblclick", handleCartEdit);
+    }
+}
+
+function handleCartEdit() {
+    let quantitiesOfProducts = document.querySelectorAll(".quantity");
+    let oldQuantityContent = this.innerHTML;
+    let newQuantityElement = document.querySelector('#input');
+    if (newQuantityElement == null) {
+        this.innerHTML = `<input type="number" autocomplete="off" value="${oldQuantityContent}" min="0" class="quantity-input" id="input">`;
+        newQuantityElement = document.querySelector('#input');
+        let bindHandleEnterAndEscape = handleEnterAndEscape.bind(null, this, newQuantityElement, quantitiesOfProducts, oldQuantityContent);
+        newQuantityElement.addEventListener('keydown', bindHandleEnterAndEscape)
+    }
+}
+
+function handleEnterAndEscape(quantity, newQuantityElement, quantitiesOfProducts, oldQuantityContent) {
+    if (event.key === 'Enter') {
+        quantity.innerHTML = newQuantityElement.value;
+        changeCartNumberSize(quantitiesOfProducts);
+        countAndChangeSubtotal(quantity.dataset.id, quantity);
+        countTotal();
+        apiFetch(quantity.dataset.id, quantity.innerHTML);
+        removeItemIfNull(quantity);
+        setCheckoutButton();
+    } else if (event.key === 'Escape') {
+        setCheckoutButton();
+        quantity.innerHTML = oldQuantityContent;
     }
 }
 
