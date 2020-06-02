@@ -5,8 +5,6 @@ import com.codecool.shop.model.Order;
 public class Intermittent {
     private static Order order;
 
-
-
     public static Order getOrder() {
         return order;
     }
