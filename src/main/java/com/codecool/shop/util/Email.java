@@ -57,7 +57,7 @@ public class Email {
         context.append("\nWe would like to inform you that you ordered the following items the CodeCool WebShop: \n");
         for(Product product: order.getProducts()){
             context.append("- ").append(product.getSupplier().getName()).append(" ")
-                    .append(product.getName()).append(" Quantity: ").append(product.getQuantity())
+                    .append(product.getName()).append(", Quantity: ").append(product.getQuantity())
                     .append("\n");
         }
         context.append("\nThank you for choosing us! \n" +
