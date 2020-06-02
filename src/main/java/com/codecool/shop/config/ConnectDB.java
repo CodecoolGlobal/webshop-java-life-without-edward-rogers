@@ -6,20 +6,18 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 
 public class ConnectDB {
-    public DataSource dataSource;
 
     public DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
 
         // TODO: update database parameters
         dataSource.setDatabaseName("codecoolshop");
-        dataSource.setUser("aron");
-        dataSource.setPassword("T3l0M4mb0");
+        dataSource.setUser("username");
+        dataSource.setPassword("password");
 
         System.out.println("Trying to connect");
         dataSource.getConnection().close();
         System.out.println("Connection OK");
-        this.dataSource = dataSource;
         return dataSource;
     }
 }
