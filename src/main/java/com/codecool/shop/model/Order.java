@@ -8,17 +8,17 @@ import static java.lang.Long.parseLong;
 public class Order {
 
     private int id;
-    private String name;
-    private String email;
-    private long phoneNumber;
-    private String billingCountry;
-    private String billingCity;
-    private int billingZip;
-    private String billingAddress;
-    private String shippingCountry;
-    private String shippingCity;
-    private int shippingZip;
-    private String shippingAddress;
+    private final String name;
+    private final String email;
+    private final long phoneNumber;
+    private final String billingCountry;
+    private final String billingCity;
+    private final int billingZip;
+    private final String billingAddress;
+    private final String shippingCountry;
+    private final String shippingCity;
+    private final int shippingZip;
+    private final String shippingAddress;
     ArrayList<Product> products;
 
 
@@ -39,4 +39,55 @@ public class Order {
         this.products = products;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public long getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getBillingCountry() {
+        return billingCountry;
+    }
+
+    public String getBillingCity() {
+        return billingCity;
+    }
+
+    public int getBillingZip() {
+        return billingZip;
+    }
+
+    public String getBillingAddress() {
+        return billingAddress;
+    }
+
+    public String getShippingCountry() {
+        return shippingCountry;
+    }
+
+    public String getShippingCity() {
+        return shippingCity;
+    }
+
+    public int getShippingZip() {
+        return shippingZip;
+    }
+
+    public String getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
 }
