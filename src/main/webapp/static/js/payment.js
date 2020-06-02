@@ -4,7 +4,7 @@ function payWithPayPal(payContainer) {
         clearContainer();
         payContainer.classList.add('card')
         payContainer.classList.add('payment-card')
-        payContainer.innerHTML = `<form action="/" method="get">
+        payContainer.innerHTML = `<form action="/email" method="get">
                                 <label for="email">Email:</label>
                                 <input style="width: 80%;" type='email' id="email" required><br>
                                 <label for="password">Password:</label>
