@@ -3,6 +3,7 @@ package com.codecool.shop.controller;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
+import com.codecool.shop.util.Email;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,8 +32,6 @@ public class AddController extends HttpServlet {
         ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
         List<Product> products = productDaoMem.getAll();
         handleProductsInCart(quantity, productId, products);
-
-
     }
     /**
      *Choose to change quantity (add or remove) or add a new one (or increase the quantity).
