@@ -25,9 +25,5 @@ public class PayController extends HttpServlet {
         context.setVariable("cartListLength", Cart.getCartListSize());
         context.setVariable("totalPrice", Cart.getCartPrice());
         engine.process("product/payment.html", context, resp.getWriter());
-
-        Email email = new Email(Intermittent.getOrder());
-        email.sendEmail();
     }
-
 }
