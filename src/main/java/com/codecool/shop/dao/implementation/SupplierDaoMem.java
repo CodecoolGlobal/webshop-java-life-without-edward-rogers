@@ -30,6 +30,11 @@ public class SupplierDaoMem implements SupplierDao {
     }
 
     @Override
+    public int getIdByName(String name) {
+        return 0;
+    }
+
+    @Override
     public Supplier find(int id) {
         return data.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
     }
