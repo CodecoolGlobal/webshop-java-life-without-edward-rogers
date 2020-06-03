@@ -16,12 +16,15 @@ import java.io.IOException;
 public class CheckoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (Cart.getCartListSize() > 0){
+            TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+            WebContext context = new WebContext(req, resp, req.getServletContext());
+            context.setVariable("cartListLength", Cart.getCartListSize());
+            engine.process("product/checkout.html", context, resp.getWriter());
+        } else {
+            resp.sendRedirect("/");
+        }
 
-
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("cartListLength", Cart.getCartListSize());
-        engine.process("product/checkout.html", context, resp.getWriter());
     }
 
 }
