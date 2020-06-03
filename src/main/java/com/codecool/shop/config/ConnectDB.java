@@ -11,9 +11,9 @@ public class ConnectDB {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
 
         // TODO: update database parameters
-        dataSource.setDatabaseName("codecoolshop");
-        dataSource.setUser("username");
-        dataSource.setPassword("password");
+        dataSource.setDatabaseName("books");
+        dataSource.setUser("bocz");
+        dataSource.setPassword("Hiperkarma3148");
 
         System.out.println("Trying to connect");
         dataSource.getConnection().close();

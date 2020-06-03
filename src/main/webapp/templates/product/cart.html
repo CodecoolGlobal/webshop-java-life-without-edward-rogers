@@ -41,8 +41,12 @@
 <div th:replace="header.html"></div>
 
 <div class="container">
-    <table class="table-design">
-        <thead>
+    <div id="errorContainer">
+        <h1 th:text="${errorMessage}" id="error"></h1>
+    </div>
+    <div id="tableContainer">
+        <table class="table-design">
+            <thead>
             <tr>
                 <th>Product Image</th>
                 <th class="product-name-title">Product Name</th>
@@ -50,8 +54,8 @@
                 <th class="quantity-title">Quantity</th>
                 <th>Subtotal</th>
             </tr>
-        </thead>
-        <tbody th:each="product, iterStat : ${cart}">
+            </thead>
+            <tbody th:each="product, iterStat : ${cart}">
             <tr>
                 <td><img class="cart-image" src="http://placehold.it/400x250/000/fff"
                          th:attr="src='/static/img/product_' + ${product.id} + '.jpg'" alt=""/></td>
@@ -64,9 +68,10 @@
                     </div>
                 </td>
             </tr>
-        </tbody>
-    </table>
-    <div class="total" th:text="'Total value: ' + ${#numbers.formatDecimal(totalPrice, 2, 2)} + ' $'"></div>
+            </tbody>
+        </table>
+        <div class="total" th:text="'Total value: ' + ${#numbers.formatDecimal(totalPrice, 2, 2)} + ' $'"></div>
+    </div>
     <br>
     <div id="checkout">
         <p>Checkout</p>

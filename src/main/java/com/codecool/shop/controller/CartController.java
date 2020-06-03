@@ -22,6 +22,11 @@ public class CartController extends HttpServlet {
         context.setVariable("cart", Cart.getProductsInCart());
         context.setVariable("cartListLength", Cart.getCartListSize());
         context.setVariable("totalPrice", Cart.getCartPrice());
+        if (Cart.getCartListSize() <= 0){
+            context.setVariable("errorMessage", "There is nothing to display as you have nothing in your Cart.");
+        } else {
+            context.setVariable("errorMessage", "");
+        }
         engine.process("product/cart.html", context, resp.getWriter());
     }
 }

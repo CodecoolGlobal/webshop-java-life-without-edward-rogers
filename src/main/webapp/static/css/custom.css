@@ -263,3 +263,9 @@ label{
 .footer {
     text-align: right;
 }
+
+#error {
+    text-align: center;
+    color: red;
+    /*font-size: ;*/
+}

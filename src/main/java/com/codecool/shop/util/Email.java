@@ -54,7 +54,7 @@ public class Email {
     public String writeTextContent(){
         StringBuilder context = new StringBuilder();
         context.append("Dear ").append(order.getName()).append(",\n");
-        context.append("\nWe would like to inform you that you ordered the following items the CodeCool WebShop: \n");
+        context.append("\nWe would like to inform you that you ordered the following items from the CodeCool WebShop: \n");
         for(Product product: order.getProducts()){
             context.append("- ").append(product.getSupplier().getName()).append(" ")
                     .append(product.getName()).append(", Quantity: ").append(product.getQuantity())

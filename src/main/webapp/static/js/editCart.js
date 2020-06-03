@@ -31,6 +31,16 @@ function handleEnterAndEscape(quantity, newQuantityElement, quantitiesOfProducts
     }
 }
 
+function checkErrorMessage() {
+    let errorMessage = document.querySelector("#error");
+    if(errorMessage.textContent !== ""){
+        let errorContainer = document.querySelector("#errorContainer");
+        errorContainer.innerHTML += `<a href="/">Back to items.</a>`;
+        let tableContainer = document.querySelector("#tableContainer");
+        tableContainer.innerHTML = null;
+    }
+}
+
 function apiFetch(id, quantity) {
     fetch(`/add-product?id=${id}&quantity=${quantity}`)
         .then(data => data);
@@ -40,6 +50,8 @@ function removeItemIfNull(quantity) {
     if(quantity.innerHTML === "0"){
         quantity.parentNode.remove();
     }
+    let quantitiesOfProducts = document.querySelectorAll(".quantity");
+    removeEntireTable(quantitiesOfProducts);
 }
 
 function changeCartNumberSize(quantity) {
@@ -89,7 +101,17 @@ function setCheckoutButton() {
         `<button class="btn btn-success"><a href="/checkout" style="color: white">Checkout</a></button>`;
 }
 
+function removeEntireTable(quantitiesOfProducts){
+    if(quantitiesOfProducts.length === 0){
+        let entireTable = document.querySelector("#tableContainer");
+        entireTable.innerHTML = null;
+        let errorMessage = document.querySelector("#errorContainer");
+        errorMessage.innerHTML = `<h1 id="error">There is nothing to display as you have nothing in your Cart.</h1>`;
+    }
+}
+
 function main() {
+    checkErrorMessage();
     setCheckoutButton();
     let quantitiesOfProducts = document.querySelectorAll(".quantity");
     editQuantity(quantitiesOfProducts);
