@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 public class ConnectDB {
 
+    private static DataSource instance;
+
     public DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
 
@@ -15,9 +17,20 @@ public class ConnectDB {
         dataSource.setUser("bocz");
         dataSource.setPassword("Hiperkarma3148");
 
-        System.out.println("Trying to connect");
         dataSource.getConnection().close();
-        System.out.println("Connection OK");
         return dataSource;
     }
+
+
+    public static DataSource getInstance(){
+        if(instance == null){
+            try {
+                instance = new ConnectDB().connect();
+            } catch (SQLException throwables) {
+                System.out.println("Trouble at connecting to database. " + throwables);
+            }
+        }
+        return instance;
+    }
+
 }

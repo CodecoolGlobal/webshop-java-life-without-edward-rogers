@@ -28,7 +28,7 @@ import java.util.List;
 
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
-    DataSource datasource = new ConnectDB().connect();
+    DataSource datasource = ConnectDB.getInstance();
 
     private final ProductDao productDataStore = ProductDaoJDBC.getInstance(datasource);
     private final ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJDBC.getInstance(datasource);
