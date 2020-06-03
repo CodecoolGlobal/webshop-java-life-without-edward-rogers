@@ -16,8 +16,12 @@ public class EmailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.sendRedirect("/");
-        Email email = new Email(Intermittent.getOrder());
-        email.sendEmail();
+        try {
+            Email email = new Email(Intermittent.getOrder());
+            email.sendEmail();
+        } catch(NullPointerException ex){
+            System.err.println("There was a problem with e-mail sending. Type: " + ex.getMessage());
+        }
     }
 
 }
