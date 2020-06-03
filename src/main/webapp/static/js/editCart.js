@@ -107,6 +107,8 @@ function removeEntireTable(quantitiesOfProducts){
         entireTable.innerHTML = null;
         let errorMessage = document.querySelector("#errorContainer");
         errorMessage.innerHTML = `<h1 id="error">There is nothing to display as you have nothing in your Cart.</h1>`;
+        let errorContainer = document.querySelector("#errorContainer");
+        errorContainer.innerHTML += `<a href="/">Back to items.</a>`;
     }
 }
 
