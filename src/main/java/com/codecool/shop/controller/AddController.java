@@ -1,6 +1,9 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.config.ConnectDB;
+import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.dao.jdbc.ProductDaoJDBC;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.util.Email;
@@ -10,7 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +23,11 @@ import java.util.List;
 public class AddController extends HttpServlet {
 
     private Integer quantity;
+
+    DataSource dataSource = new ConnectDB().connect();
+
+    public AddController() throws SQLException {
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,8 +39,8 @@ public class AddController extends HttpServlet {
         }
 
         int productId = Integer.parseInt(req.getParameter("id"));
-        ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
-        List<Product> products = productDaoMem.getAll();
+        ProductDao productDao = ProductDaoJDBC.getInstance(dataSource);
+        List<Product> products = productDao.getAll();
         handleProductsInCart(quantity, productId, products);
     }
     /**
