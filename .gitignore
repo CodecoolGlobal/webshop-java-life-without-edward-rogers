@@ -40,8 +40,6 @@ gradle-app.setting
 .gradletasknamecache
 
 
-src/main/resources/DBvariables
-
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 
