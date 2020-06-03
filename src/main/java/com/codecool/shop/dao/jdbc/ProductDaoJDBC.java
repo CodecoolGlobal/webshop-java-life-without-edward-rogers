@@ -27,7 +27,6 @@ public class ProductDaoJDBC implements ProductDao {
     }
 
     public static ProductDaoJDBC getInstance(DataSource dataSource) {
-        System.out.println(instance);
         if (instance == null) {
             instance = new ProductDaoJDBC(dataSource);
         }
