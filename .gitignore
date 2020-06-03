@@ -37,7 +37,7 @@ gradle-app.setting
 .gradletasknamecache
 
 
-/src/main/resources/DBvariables
+src/main/resources/DBvariables.txt
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
