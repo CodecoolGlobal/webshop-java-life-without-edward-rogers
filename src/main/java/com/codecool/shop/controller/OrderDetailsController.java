@@ -18,9 +18,13 @@ public class OrderDetailsController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect(req.getContextPath()+"/payment");
-
-        Intermittent.setOrder(createOrder(req));
+        try{
+            resp.sendRedirect(req.getContextPath() + "/payment");
+            Intermittent.setOrder(createOrder(req));
+        } catch (Exception e){
+            resp.sendRedirect("/");
+            System.err.println("There was a problem with setting the order sending. Type: " + e.getMessage());
+        }
     }
 
     /**
