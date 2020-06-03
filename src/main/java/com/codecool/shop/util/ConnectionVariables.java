@@ -6,53 +6,45 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
-public class FileReader {
-
+public class ConnectionVariables {
         private String filePath;
-        private Integer fromLine;
-        private Integer toLine;
+        private HashMap<String, String> userData;
 
-        public void setup(String filePath, Integer fromLine, Integer toLine) throws IllegalArgumentException{
-            if (toLine < fromLine || fromLine < 1){
-                throw new IllegalArgumentException();
-            }
+        public ConnectionVariables(String filePath) throws IOException {
             this.filePath = filePath;
-            this.fromLine = fromLine;
-            this.toLine = toLine;
+            read();
         }
 
-        public String read() throws IOException {
-            StringBuilder content = new StringBuilder();
+        private void read() throws IOException {
+            HashMap<String, String> userData = new HashMap<>();
             if (!new FileReader(filePath).ready()){
                 throw new IOException();
             }
             BufferedReader br = new BufferedReader(new FileReader(filePath));
             String line;
+            String[] types = {"dbname", "username", "password"};
+            int i = 0;
             while ((line = br.readLine()) != null) {
-                content.append(line).append("\n");
-            }
-            content.deleteCharAt(content.lastIndexOf("\n"));
-            return content.toString();
-        }
-
-        public String readLines () throws IOException {
-            String content = read();
-            StringBuilder contentLines = new StringBuilder();
-            ArrayList<String> linesOfContent = new ArrayList<>(Arrays.asList(content.split("\n")));
-            int fromLineIndex = fromLine-1;
-            int toLineIndex = toLine-1;
-            for (int i = fromLineIndex; i <= toLineIndex; i++) {
-                if (linesOfContent.size() > i){
-                    contentLines.append(linesOfContent.get(i)).append("\n");
-                } else {
+                if (3 < i){
                     break;
                 }
+                userData.put(types[i], line);
+                i++;
             }
-            contentLines.deleteCharAt(contentLines.lastIndexOf("\n"));
-            return contentLines.toString();
+            this.userData = userData;
         }
 
+        public String getDBName(){
+            return userData.get("dbname");
+        }
 
-    }
+        public String getUserName(){
+            return userData.get("username");
+        }
+
+        public String getPassword(){
+            return userData.get("password");
+        }
 }
