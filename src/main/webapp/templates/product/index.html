@@ -79,7 +79,7 @@
                 <img class="product-image" src="http://placehold.it/400x250/000/fff"
                      th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
                 <div class="product-title">
-                    <h4 th:text="${prod.name}">Product name</h4>
+                    <h4 th:text="${prod.supplierName} + ' ' +${prod.name}">Product name</h4>
                 </div>
                 <div class="product-description">
                     <p th:text="${prod.description}">Product description... </p>

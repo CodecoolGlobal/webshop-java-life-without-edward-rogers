@@ -52,17 +52,16 @@ public class Initializer implements ServletContextListener {
         productCategoryDataStore.add(phone);
 
 
-
         //setting up products and printing it
-        productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
-        productDataStore.add(new Product("Lenovo IdeaPad Miix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
-        productDataStore.add(new Product("Amazon", 244, "USD", ". Full-size USB ports. Adjustable kickstand.", tablet, amazon));
-        productDataStore.add(new Product("HP401", 50, "USD", "HP the king of IT", computer, hp));
-        productDataStore.add(new Product("HP0501", 89, "USD", "HP the king of IT", computer, hp));
-        productDataStore.add(new Product("HP-laptop", 150, "USD", "HP the best laptops", laptop, hp));
-        productDataStore.add(new Product("SonyTV1", 300, "USD", "Sony for your best choice", television, sony));
-        productDataStore.add(new Product("SonyTV2", 300, "USD", "Sony for your best choice", television, sony));
-        productDataStore.add(new Product("Toshiba", 200, "USD", "Toshiba computer technics", laptop, toshiba));
+        productDataStore.add(new Product("Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
+        productDataStore.add(new Product("IdeaPad Mix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
+        productDataStore.add(new Product("ND500", 244, "USD", ". Full-size USB ports. Adjustable kickstand.", tablet, amazon));
+        productDataStore.add(new Product("401", 50, "USD", "HP the king of IT", computer, hp));
+        productDataStore.add(new Product("0501", 89, "USD", "HP the king of IT", computer, hp));
+        productDataStore.add(new Product("laptop", 150, "USD", "HP the best laptops", laptop, hp));
+        productDataStore.add(new Product("MXE-SuperBeauty-800", 300, "USD", "Sony for your best choice", television, sony));
+        productDataStore.add(new Product("BDNW-510", 300, "USD", "Sony for your best choice", television, sony));
+        productDataStore.add(new Product("SexyPant", 200, "USD", "Toshiba computer technics", laptop, toshiba));
 
     }
 }

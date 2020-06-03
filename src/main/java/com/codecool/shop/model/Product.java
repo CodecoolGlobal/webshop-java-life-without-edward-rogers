@@ -25,6 +25,10 @@ public class Product extends BaseModel {
         this.setProductCategory(productCategory);
     }
 
+    public String getSupplierName(){
+        return this.supplier.getName();
+    }
+
     public float getDefaultPrice() {
         return defaultPrice;
     }
