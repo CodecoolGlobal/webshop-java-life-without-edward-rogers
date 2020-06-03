@@ -26,7 +26,7 @@ function payWithCreditCard(payContainer) {
         let selectOptions = `
                                     <form action="/email" method="get">
                                     <label for="card-number">Card number:</label><br>
-                                    <input type='text' id='card-number' required><br>
+                                    <input type='text' id='card-number' pattern="[0-9]+" minlength="16" maxlength="16" required><br>
                                     <label for="card-holder">Bank:</label><br>
                                     <input type='text' id='card-holder' required><br>`;
 
@@ -41,7 +41,7 @@ function payWithCreditCard(payContainer) {
         }
         selectOptions += `          </select><br>
                                     <label for="CVC">CVC:</label><br>
-                                    <input type='password' id='CVC' maxlength="3" required><br>
+                                    <input type='password' pattern="[0-9]+" id='CVC' minlength="3" maxlength="3" required><br>
                                     <button style="margin: 2%" type="submit">Pay</button>
                                     </form>`;
         payContainer.innerHTML += selectOptions;
