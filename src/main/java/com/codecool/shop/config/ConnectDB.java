@@ -14,7 +14,7 @@ public class ConnectDB {
     public DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         try {
-            ConnectionVariables connectionVariables = new ConnectionVariables("./src/main/resources/DBvariables");
+            ConnectionVariables connectionVariables = new ConnectionVariables("./src/main/resources/DBvariables.txt");
             dataSource.setDatabaseName(connectionVariables.getDBName());
             dataSource.setUser(connectionVariables.getUserName());
             dataSource.setPassword(connectionVariables.getPassword());
