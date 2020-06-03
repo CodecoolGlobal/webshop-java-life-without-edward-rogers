@@ -29,7 +29,6 @@ class ProductDaoTest {
     @Test
     @Order(1)
     public void testAddToProduct() {
-        System.out.println(productDao.getAll());
         assertEquals(2, productDao.getAll().size());
     }
 
