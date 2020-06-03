@@ -23,12 +23,7 @@ public class Initializer implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
-        ConnectDB connectDB = new ConnectDB();
-        try {
-            dataSource = connectDB.connect();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        dataSource = ConnectDB.getInstance();
 
         SupplierDao supplierDataStore = SupplierDaoJDBC.getInstance(dataSource);
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJDBC.getInstance(dataSource);

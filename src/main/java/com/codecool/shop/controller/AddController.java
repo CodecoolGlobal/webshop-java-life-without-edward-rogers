@@ -23,11 +23,9 @@ import java.util.List;
 public class AddController extends HttpServlet {
 
     private Integer quantity;
+    DataSource dataSource = ConnectDB.getInstance();
 
-    DataSource dataSource = new ConnectDB().connect();
 
-    public AddController() throws SQLException {
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
