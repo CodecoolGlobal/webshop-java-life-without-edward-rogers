@@ -93,12 +93,11 @@ public class Filter {
         return filteredProduct;
     }
 
-
     private List<Product> showFinalResultOfSearch(List<Product> filteredProduct, List<Product> filteredByCategories,
                                                   List<Product> filteredBySuppliers) {
         for (Product byCategory : filteredByCategories) {
             for (Product bySupplier : filteredBySuppliers) {
-                if (byCategory == bySupplier) {
+                if (byCategory.getId() == bySupplier.getId()) {
                     filteredProduct.add(byCategory);
                 }
             }

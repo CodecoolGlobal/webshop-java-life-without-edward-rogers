@@ -33,9 +33,9 @@ function handleEnterAndEscape(quantity, newQuantityElement, quantitiesOfProducts
 
 function checkErrorMessage() {
     let errorMessage = document.querySelector("#error");
-    if(errorMessage.textContent !== ""){
+    if (errorMessage.textContent !== "") {
         let errorContainer = document.querySelector("#errorContainer");
-        errorContainer.innerHTML += `<a href="/">Back to items.</a>`;
+        errorContainer.innerHTML += `<button class="btn btn-primary"><a style="color: white" href="/">Back to items</a></button>`;
         let tableContainer = document.querySelector("#tableContainer");
         tableContainer.innerHTML = null;
     }
@@ -47,11 +47,12 @@ function apiFetch(id, quantity) {
 }
 
 function removeItemIfNull(quantity) {
-    if(quantity.innerHTML === "0"){
+    if (quantity.innerHTML === "0") {
         quantity.parentNode.remove();
+
+        let quantitiesOfProducts = document.querySelectorAll(".quantity");
+        removeEntireTable(quantitiesOfProducts);
     }
-    let quantitiesOfProducts = document.querySelectorAll(".quantity");
-    removeEntireTable(quantitiesOfProducts);
 }
 
 function changeCartNumberSize(quantity) {
@@ -61,6 +62,9 @@ function changeCartNumberSize(quantity) {
         sum += parseInt(number.innerHTML);
     }
     cartIconNumber.innerHTML = String(sum);
+    if (cartIconNumber.innerHTML === '0') {
+        cartIconNumber.remove();
+    }
 }
 
 function countAndChangeSubtotal(id, quantity) {
@@ -93,22 +97,24 @@ function countTotal() {
 }
 
 function setCheckoutButton() {
-    let total = document.querySelector(".total").innerHTML;
-    let cont = document.querySelector("#checkout");
-    let totalInt = parseInt(total.slice(13, -2));
-    cont.innerHTML = (totalInt === 0) ?
-        `<button class="btn btn-success"><a id="disabled-link" href="/checkout" style="color: white">Checkout</a></button>` :
-        `<button class="btn btn-success"><a href="/checkout" style="color: white">Checkout</a></button>`;
+    let total = document.querySelector(".total");
+    if (!total) {
+        let button = document.querySelector('.btn-success');
+        button.remove();
+    } else {
+        let cont = document.querySelector("#checkout");
+        cont.innerHTML = `<button class="btn btn-success"><a href="/checkout" style="color: white">Checkout</a></button>`;
+    }
 }
 
-function removeEntireTable(quantitiesOfProducts){
-    if(quantitiesOfProducts.length === 0){
+function removeEntireTable(quantitiesOfProducts) {
+    if (quantitiesOfProducts.length === 0) {
         let entireTable = document.querySelector("#tableContainer");
         entireTable.innerHTML = null;
         let errorMessage = document.querySelector("#errorContainer");
-        errorMessage.innerHTML = `<h1 id="error">There is nothing to display as you have nothing in your Cart.</h1>`;
+        errorMessage.innerHTML = `<h1 id="error">Your cart is empty!</h1>`;
         let errorContainer = document.querySelector("#errorContainer");
-        errorContainer.innerHTML += `<a href="/">Back to items.</a>`;
+        errorContainer.innerHTML += `<button class="btn btn-primary"><a style="color: white" href="/">Back to items</a></button>`;
     }
 }
 

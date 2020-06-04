@@ -23,7 +23,7 @@ public class CartController extends HttpServlet {
         context.setVariable("cartListLength", Cart.getCartListSize());
         context.setVariable("totalPrice", Cart.getCartPrice());
         if (Cart.getCartListSize() <= 0){
-            context.setVariable("errorMessage", "There is nothing to display as you have nothing in your Cart.");
+            context.setVariable("errorMessage", "Your cart is empty!");
         } else {
             context.setVariable("errorMessage", "");
         }
