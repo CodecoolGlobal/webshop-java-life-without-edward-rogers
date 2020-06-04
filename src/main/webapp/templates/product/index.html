@@ -52,24 +52,26 @@
             <input type="checkbox" th:name="${supplier.name}" th:value="${supplier.id}" th:text=" ${supplier.name}"><br>
         </div>
         <div style="text-align: center">
-        <br><input class="btn btn-secondary" type="submit" value="Filter">
+            <br><input class="btn btn-secondary" type="submit" value="Filter">
         </div>
     </form>
 </div>
 
 <div class="container-card card">
     <div class="header-card card">
-        <strong th:switch="${categories}">
-            <span th:case="''">All Products</span>
-            <span th:case="'Empty'"></span>
-            <span th:case="'No'">No Item Found For That Filter</span>
-            <span th:case="'Not Found'">No Item Found For That Filter</span>
-            <span th:case="*" th:text="'Categories: '+ ${categories}"></span>
-        </strong>
-        <strong th:switch="${suppliers}">
-            <span th:case="''"></span>
-            <span th:case="'No'">No Item Found For That Filter</span>
-            <span th:case="*" th:text="'Suppliers: '+ ${suppliers}"></span>
+        <strong>
+            <span th:switch="${categories}">
+                <span th:case="''">All Products</span>
+                <span th:case="'Empty'"></span>
+                <span th:case="'No'">No Item Found For That Filter</span>
+                <span th:case="'Not Found'">No Item Found For That Filter</span>
+                <span th:case="*" th:text="'Categories: '+ ${categories}"></span>
+            </span>
+            <span th:switch="${suppliers}">
+                <span th:case="''"></span>
+                <span th:case="'No'">No Item Found For That Filter</span>
+                <span th:case="*" th:utext="'&lt;br /&gt;' + 'Suppliers: '+ ${suppliers}"></span>
+            </span>
         </strong>
     </div>
 
