@@ -67,6 +67,7 @@ class ProductDaoJDBCTest {
     @Test
     @Order(4)
     public void testGetProductBySupplier(){
+        supplier.setId(1);
         System.out.println(productDao.getBy(supplier));
         assertEquals(2, productDao.getBy(supplier).size());
     }
@@ -74,6 +75,7 @@ class ProductDaoJDBCTest {
     @Test
     @Order(5)
     public void testGetProductByCategory(){
+        productCategory.setId(1);
         assertEquals(2, productDao.getBy(productCategory).size());
     }
 
