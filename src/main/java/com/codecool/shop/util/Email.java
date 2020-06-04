@@ -5,8 +5,11 @@ import com.codecool.shop.model.Product;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import java.util.Properties;
+import javax.mail.internet.MimeMultipart;
+import java.io.IOException;
+import java.util.*;
 
 public class Email {
     private final String username = "lwhedwardrogers";
@@ -17,13 +20,13 @@ public class Email {
     private Order order;
 
 
-    public Email(Order order){
+    public Email(Order order) {
         this.order = order;
         this.toEmail = order.getEmail();
     }
 
 
-    public void sendEmail(){
+    public void sendEmail() {
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.ssl.enable", "false");
@@ -31,7 +34,7 @@ public class Email {
         properties.put("mail.smtp.port", "587");
         properties.put("mail.smtp.starttls.enable", "true");
 
-        Session session = Session.getInstance(properties, new javax.mail.Authenticator(){
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password);
@@ -42,8 +45,17 @@ public class Email {
         try {
             msg.setFrom(new InternetAddress(fromEmail));
             msg.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+
             msg.setSubject("Order Confirmation - Codecool WebShop");
-            msg.setText(writeTextContent());
+
+            Multipart emailContent = new MimeMultipart();
+            MimeBodyPart textBodyPart = new MimeBodyPart();
+
+            textBodyPart.setText(writeTextContent());
+            emailContent.addBodyPart(textBodyPart);
+            attachFilesToEmail(emailContent);
+            msg.setContent(emailContent);
+
             Transport.send(msg);
             System.out.println("Message sent.");
         } catch (MessagingException e) {
@@ -51,15 +63,16 @@ public class Email {
         }
     }
 
-    public String writeTextContent(){
+    private String writeTextContent() {
         StringBuilder context = new StringBuilder();
         context.append("Dear ").append(order.getName()).append(",\n");
         context.append("\nWe would like to inform you that you ordered the following items from the CodeCool WebShop: \n");
-        for(Product product: order.getProducts()){
+        for (Product product : order.getProducts()) {
             context.append("- ").append(product.getSupplier().getName()).append(" ")
                     .append(product.getName()).append(", Quantity: ").append(product.getQuantity())
                     .append("\n");
         }
+        context.append("Total price: ").append("" + calculateTotalPrice()).append("$\n");
         context.append("\nThank you for choosing us! \n" +
                 "We will contact you as soon as possible about the development of your Order.\n");
         context.append("\nAddress details: \n");
@@ -67,5 +80,36 @@ public class Email {
                 .append(order.getShippingCity()).append(", ").append(order.getShippingAddress()).append(".\n");
         context.append("\nBest regards, \nYour favourite superstar, Edward Rogers.");
         return context.toString();
+    }
+
+    private void attachFilesToEmail(Multipart emailContent) {
+        List<Product> productsInOrder = order.getProducts();
+        Set<Product> productSet = new HashSet(productsInOrder);
+        ArrayList<Integer> productIDs = new ArrayList<>();
+        for (Product product : productSet) {
+            productIDs.add(product.getId());
+        }
+        createAttachments(productIDs, emailContent);
+    }
+
+    private void createAttachments(List<Integer> productIDs, Multipart emailContent) {
+        try {
+            for (Integer productID : productIDs) {
+                MimeBodyPart jpgAttachment = new MimeBodyPart();
+                jpgAttachment.attachFile("./src/main/webapp/static/img/product_" + productID + ".jpg");
+                emailContent.addBodyPart(jpgAttachment);
+            }
+        } catch (IOException | MessagingException ex){
+            System.err.println("There was a problem with attach files. Type: " + ex.getMessage());
+        }
+    }
+
+    private double calculateTotalPrice(){
+        List<Product> productsInOrder = order.getProducts();
+        double totalPrice = 0;
+        for (Product product : productsInOrder){
+            totalPrice += product.getDefaultPrice() * product.getQuantity();
+        }
+        return totalPrice;
     }
 }
