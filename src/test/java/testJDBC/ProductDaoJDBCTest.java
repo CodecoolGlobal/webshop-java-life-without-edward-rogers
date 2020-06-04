@@ -55,9 +55,7 @@ class ProductDaoJDBCTest {
         Product foundProduct = productDao.find(id);
         assertEquals(id, foundProduct.getId());
         product.setId(id);
-        System.out.println(product);
-        System.out.println(foundProduct);
-        assertTrue(EqualsBuilder.reflectionEquals(product, productDao.find(id)));
+        assertEquals(product.toString(), foundProduct.toString());
     }
 
     @Test
