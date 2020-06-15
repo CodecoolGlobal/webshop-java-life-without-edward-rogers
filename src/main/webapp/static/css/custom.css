@@ -273,3 +273,13 @@ label{
     margin-top: 2%;
     margin-left: 45%;
 }
+
+.redBorder{
+    border: 2px solid red;
+    border-radius: 4px;;
+}
+
+.greenBorder{
+    border: 2px solid green;
+    border-radius: 4px;;
+}
