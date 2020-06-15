@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS product_category;
 DROP TABLE IF EXISTS suppliers;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE suppliers
 (
@@ -15,6 +16,17 @@ CREATE TABLE product_category
     name VARCHAR NOT NULL,
     department VARCHAR,
     description VARCHAR
+);
+
+CREATE TABLE users
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    password VARCHAR NOT NULL,
+    country VARCHAR,
+    city VARCHAR,
+    zip int,
+    address VARCHAR
 );
 
 
