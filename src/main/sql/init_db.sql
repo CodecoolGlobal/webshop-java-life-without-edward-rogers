@@ -22,11 +22,13 @@ CREATE TABLE users
 (
     id   SERIAL PRIMARY KEY,
     name VARCHAR NOT NULL,
-    password VARCHAR NOT NULL,
+    password bytea NOT NULL,
     country VARCHAR,
     city VARCHAR,
     zip int,
-    address VARCHAR
+    address VARCHAR,
+    email VARCHAR,
+    phone_number VARCHAR
 );
 
 
