@@ -41,17 +41,33 @@
 <div class="container-card">
     <div class="card-at-the-center">
         <form action="/registration" method="post">
-            <h1 style="margin-top: 1em;">Fill out this form to Registrate!</h1>
+            <h1 style="margin-top: 1em;">Fill out this form to Register!</h1>
             <label for="username">Enter your Username:</label>
-            <input type="text" id="username" name="username"><br><br>
+            <input type="text" id="username" name="username" placeholder="EdwardRogers11" required><br><br>
 
             <label for="password">Enter your Password:</label>
-            <input type="password" id="password" name="password"><br><br>
+            <input type="password" id="password" name="password" required><br><br>
 
             <label for="password">Enter your Password again:</label>
-            <input type="password" id="passwordVer" name="password"><br><br>
+            <input type="password" id="passwordVer" name="passwordVer" required><br><br>
 
-            <button class="btn btn-success continue-button" type="submit">Continue</button>
+            <label for="email">E-mail</label><br>
+            <input type="email" id="email" placeholder="edward@rogers.com" name="email" required><br>
+
+            <label for="phone">Telephone number</label><br>
+            <input type="tel" id="phone" placeholder="+36301234567" name="phone" minlength="11" maxlength="18" required><br>
+
+            <input type="text" id="country" name="country" placeholder="Country Name" required><br>
+
+            <input type="text" id="city" name="city" placeholder="City" required><br>
+
+            <input type="number" id="zip" name="zip" placeholder="Zipcode" required><br>
+
+            <textarea class="fill-div" rows="3" cols="20" id="address" name="address"
+                      placeholder="123 Main Street, New York"
+                      required></textarea><br>
+
+            <button id="registrationButton" type="submit">Registration</button>
         </form>
     </div>
 </div>
