@@ -8,7 +8,5 @@ import java.util.List;
 public interface UserDao {
 
     void add(User user);
-    User find(String userName, String password);
 
-    List<Product> getAll();
 }
