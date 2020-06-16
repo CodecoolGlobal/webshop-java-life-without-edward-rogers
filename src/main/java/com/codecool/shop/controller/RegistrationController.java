@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
@@ -24,7 +23,7 @@ public class RegistrationController extends HttpServlet {
     DataSource datasource = ConnectDB.getInstance();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
 
@@ -47,7 +46,7 @@ public class RegistrationController extends HttpServlet {
         String phoneNumber = req.getParameter("phone");
 
         try {
-            byte[] hashedPassword = hashPassword.hash(password);
+            String hashedPassword = hashPassword.hash(password);
             userDaoJDBC.add(new User(userName, hashedPassword, address,
                     zip, country, city, email, phoneNumber));
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
