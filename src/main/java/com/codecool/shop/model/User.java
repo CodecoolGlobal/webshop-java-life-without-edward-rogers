@@ -2,7 +2,7 @@ package com.codecool.shop.model;
 
 public class User {
     private String userName;
-    private byte[] hashedPassword;
+    private String hashedPassword;
     private String address;
     private int zip;
     private String country;
@@ -11,7 +11,7 @@ public class User {
     private String phoneNumber;
     private Cart cart;
 
-    public User(String userName, byte[] hashedPassword, String address, int zip, String country,
+    public User(String userName, String hashedPassword, String address, int zip, String country,
                 String city, String email, String phoneNumber){
         this.userName = userName;
         this.hashedPassword = hashedPassword;
@@ -27,7 +27,7 @@ public class User {
         return userName;
     }
 
-    public byte[] getHashedPassword() {
+    public String getHashedPassword() {
         return hashedPassword;
     }
 
