@@ -1,10 +1,42 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+
+    <!-- Bootstrap components -->
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!--Latest compiled and minified Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- End of Bootstrap components -->
+
+    <!-- fontawesome script -->
+    <script src="https://kit.fontawesome.com/80c95c391e.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
+
+</head>
 <body>
 
 <div class="jumbotron text-center" style="padding-left: 0; !important; padding-bottom: 5%; !important;">
     <!-- Navigation bar with cart -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky" >
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky">
 
         <div class="mx-auto order-0">
             <a class="navbar-brand mx-auto" href="/">Codecool Shop</a>
@@ -14,6 +46,15 @@
         </div>
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
+                <li th:if="${session.isEmpty()}" class="nav-item">
+                    <a class="nav-link" href="/registration">Register</a>
+                </li>
+                <li th:if="${session.isEmpty()}" class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li th:if="${!session.isEmpty()}" class="nav-item">
+                    <a class="nav-link" href="/logout">Log out</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/cart">
                         <div th:switch="${cartListLength}">
@@ -21,7 +62,6 @@
                             <span class="cart-size cart-items" th:case="*" th:text="${cartListLength}"></span>
                             <span><i class="fas fa-shopping-basket"></i></span>
                         </div>
-
                     </a>
                 </li>
             </ul>
