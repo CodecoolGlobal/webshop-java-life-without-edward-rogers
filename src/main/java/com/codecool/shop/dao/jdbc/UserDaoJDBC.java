@@ -7,7 +7,12 @@ import com.codecool.shop.model.User;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class UserDaoJDBC implements UserDao {
 
@@ -27,7 +32,7 @@ public class UserDaoJDBC implements UserDao {
              PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 
             pstmt.setString(1, user.getUserName());
-            pstmt.setBytes(2, user.getHashedPassword());
+            pstmt.setString(2, user.getHashedPassword());
             pstmt.setString(3, user.getCountry());
             pstmt.setString(4, user.getCity());
             pstmt.setInt(5, user.getZip());
@@ -39,6 +44,47 @@ public class UserDaoJDBC implements UserDao {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    @Override
+    public Map<String, String> getDataOfUser(String userName) {
+        Map<String, String> userData = new HashMap();
+        String SQL = "SELECT country, city, zip, address, email, phone_number FROM users WHERE name = ?";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+            pstmt.setString(1, userName);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                userData.put("country", rs.getString("country"));
+                userData.put("city", rs.getString("city"));
+                userData.put("zip", "" + rs.getInt("zip"));
+                userData.put("address", rs.getString("address"));
+                userData.put("email", rs.getString("email"));
+                userData.put("phoneNUmber", rs.getString("phoneNumber"));
+
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return userData;
+    }
+
+    @Override
+    public Map<String, String> getNameAndPassword(String userName) {
+        Map<String, String> userData = new HashMap();
+        String SQL = "SELECT name, password FROM users WHERE name = ?";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+            pstmt.setString(1, userName);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                userData.put("username", rs.getString("name"));
+                userData.put("password", rs.getString("password"));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return userData;
     }
 
 }
