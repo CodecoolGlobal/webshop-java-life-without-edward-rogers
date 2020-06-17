@@ -48,8 +48,6 @@ public class HashPassword {
     }
 
     public boolean verifyPassword(String loginPassword, String savedPassword) throws InvalidKeySpecException, NoSuchAlgorithmException {
-        System.out.println(savedPassword);
-        System.out.println(hash(loginPassword));
         return savedPassword.equals(hash(loginPassword));
     }
 }
