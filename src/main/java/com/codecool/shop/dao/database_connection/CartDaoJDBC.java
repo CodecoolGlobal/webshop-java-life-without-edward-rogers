@@ -31,7 +31,7 @@ public class CartDaoJDBC implements CartDao {
     }
 
     @Override
-    public void add(Cart cart, Product product) {
+    public void add(String userID, Product product) {
 
     }
 

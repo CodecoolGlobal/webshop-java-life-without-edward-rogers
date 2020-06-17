@@ -1,4 +1,4 @@
-package com.codecool.shop.dao.jdbc;
+package com.codecool.shop.dao.database_connection;
 
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
