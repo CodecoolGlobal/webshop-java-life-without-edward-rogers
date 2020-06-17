@@ -72,7 +72,7 @@ public class UserDaoJDBC implements UserDao {
     @Override
     public Map<String, String> getNameAndPassword(String userName) {
         Map<String, String> userData = new HashMap();
-        String SQL = "SELECT name, password FROM users WHERE name = ?";
+        String SQL = "SELECT id, name, password FROM users WHERE name = ?";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(SQL)) {
             pstmt.setString(1, userName);
@@ -80,6 +80,7 @@ public class UserDaoJDBC implements UserDao {
             while (rs.next()) {
                 userData.put("username", rs.getString("name"));
                 userData.put("password", rs.getString("password"));
+                userData.put("id", rs.getString("id"));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
