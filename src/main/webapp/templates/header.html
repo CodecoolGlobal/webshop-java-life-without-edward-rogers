@@ -53,6 +53,9 @@
                     <a class="nav-link" href="/login">Login</a>
                 </li>
                 <li th:if="${!session.isEmpty()}" class="nav-item">
+                    <span class="nav-link" th:text="${'Logged in as: ' + session.userName}"></span>
+                </li>
+                <li th:if="${!session.isEmpty()}" class="nav-item">
                     <a class="nav-link" href="/logout">Log out</a>
                 </li>
                 <li class="nav-item">
