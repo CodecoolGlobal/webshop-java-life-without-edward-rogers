@@ -2,7 +2,7 @@ package testJDBC;
 
 import com.codecool.shop.config.ConnectDB;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.jdbc.SupplierDaoJDBC;
+import com.codecool.shop.dao.database_connection.SupplierDaoJDBC;
 import com.codecool.shop.model.Supplier;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.junit.jupiter.api.*;

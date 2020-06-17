@@ -4,13 +4,12 @@ import com.codecool.shop.config.ConnectDB;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.jdbc.ProductCategoryDaoJDBC;
-import com.codecool.shop.dao.jdbc.ProductDaoJDBC;
-import com.codecool.shop.dao.jdbc.SupplierDaoJDBC;
+import com.codecool.shop.dao.database_connection.ProductCategoryDaoJDBC;
+import com.codecool.shop.dao.database_connection.ProductDaoJDBC;
+import com.codecool.shop.dao.database_connection.SupplierDaoJDBC;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
-import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.junit.jupiter.api.*;
 
 import javax.sql.DataSource;

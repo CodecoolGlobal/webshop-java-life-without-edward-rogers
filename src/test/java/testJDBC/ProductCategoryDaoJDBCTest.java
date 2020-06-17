@@ -3,7 +3,7 @@ package testJDBC;
 import com.codecool.shop.config.ConnectDB;
 import com.codecool.shop.dao.ProductCategoryDao;
 import org.apache.commons.lang3.builder.EqualsBuilder;
-import com.codecool.shop.dao.jdbc.ProductCategoryDaoJDBC;
+import com.codecool.shop.dao.database_connection.ProductCategoryDaoJDBC;
 import com.codecool.shop.model.ProductCategory;
 import org.junit.jupiter.api.*;
 
