@@ -2,6 +2,9 @@ DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS product_category;
 DROP TABLE IF EXISTS suppliers;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS carts;
+DROP TABLE IF EXISTS users_cart;
+
 
 CREATE TABLE suppliers
 (
@@ -43,3 +46,17 @@ CREATE TABLE products
     product_category_id INTEGER REFERENCES product_category (id) ON DELETE CASCADE,
     picture             VARCHAR
 );
+
+CREATE TABLE carts
+(
+    id SERIAL PRIMARY KEY,
+    product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
+    quantity int
+);
+
+CREATE TABLE users_cart
+(
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    cart_id INTEGER REFERENCES carts(id) ON DELETE CASCADE
+)
