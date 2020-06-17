@@ -73,6 +73,7 @@ public class AddController extends HttpServlet {
             }
         }
         cart.setProductsInCart(productsInCart);
+
     }
 
     /**
@@ -95,6 +96,7 @@ public class AddController extends HttpServlet {
             product.setQuantity(product.getQuantity() + 1);
             productsInCart.add(product);
         }
+
     }
 
     /**
