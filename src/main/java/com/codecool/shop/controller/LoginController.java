@@ -3,7 +3,7 @@ package com.codecool.shop.controller;
 import com.codecool.shop.config.ConnectDB;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.UserDao;
-import com.codecool.shop.dao.jdbc.UserDaoJDBC;
+import com.codecool.shop.dao.database_connection.UserDaoJDBC;
 import com.codecool.shop.util.HashPassword;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -57,6 +57,7 @@ public class LoginController extends HttpServlet {
         if(passwordsAreMatching){
             HttpSession session = req.getSession();
             session.setAttribute("userName", username);
+            session.setAttribute("userID", userNameAndPass.get("id"));
             resp.sendRedirect("/");
         }
     }

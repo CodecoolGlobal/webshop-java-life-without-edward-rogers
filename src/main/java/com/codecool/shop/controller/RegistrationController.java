@@ -2,7 +2,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.ConnectDB;
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.jdbc.UserDaoJDBC;
+import com.codecool.shop.dao.database_connection.UserDaoJDBC;
 import com.codecool.shop.model.User;
 import com.codecool.shop.util.HashPassword;
 import org.thymeleaf.TemplateEngine;
@@ -33,7 +33,7 @@ public class RegistrationController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         UserDaoJDBC userDaoJDBC = new UserDaoJDBC(datasource);
         HashPassword hashPassword = HashPassword.getInstance();
         String userName = req.getParameter("username");

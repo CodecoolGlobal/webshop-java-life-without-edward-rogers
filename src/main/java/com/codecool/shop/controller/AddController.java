@@ -2,20 +2,17 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.ConnectDB;
 import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.jdbc.ProductDaoJDBC;
+import com.codecool.shop.dao.database_connection.CartDaoJDBC;
+import com.codecool.shop.dao.database_connection.ProductDaoJDBC;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
-import com.codecool.shop.util.Email;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +21,17 @@ public class AddController extends HttpServlet {
 
     private Integer quantity;
     DataSource dataSource = ConnectDB.getInstance();
+    private CartDaoJDBC cartDaoJDBC = CartDaoJDBC.getInstance(dataSource);
+    private Cart cart;
 
 
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+
+        HttpSession session = req.getSession();
+        String userID = (String) session.getAttribute("userID");
+        cart = cartDaoJDBC.getCartByUser(userID);
 
         if ((req.getParameter("quantity")) == null){
             quantity = null;
@@ -63,13 +66,13 @@ public class AddController extends HttpServlet {
      * @param products  - List of all product that shop has
      */
     private void addToCartList(int productId, List<Product> products) {
-        ArrayList<Product> productsInCart = Cart.getProductsInCart();
+        ArrayList<Product> productsInCart = cart.getProductsInCart();
         for (Product product : products) {
             if (product.getId() == productId) {
                 raiseQuantityOrAdd(productId, productsInCart, product);
             }
         }
-        Cart.setProductsInCart(productsInCart);
+        cart.setProductsInCart(productsInCart);
     }
 
     /**
@@ -101,14 +104,14 @@ public class AddController extends HttpServlet {
      */
     private void changeQuantity(int productId, int quantity) {
         ArrayList<Product> cartList = new ArrayList<>();
-        cartList.addAll(Cart.getProductsInCart());
+        cartList.addAll(cart.getProductsInCart());
         for (Product product : cartList) {
             if (product.getId() == productId) {
                 product.setQuantity(quantity);
                 if (quantity == 0) {
-                    ArrayList<Product> newCartList = Cart.getProductsInCart();
+                    ArrayList<Product> newCartList = cart.getProductsInCart();
                     newCartList.remove(product);
-                    Cart.setProductsInCart(newCartList);
+                    cart.setProductsInCart(newCartList);
                 }
             }
         }

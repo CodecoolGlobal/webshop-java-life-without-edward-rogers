@@ -1,5 +1,7 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.config.ConnectDB;
+import com.codecool.shop.dao.database_connection.CartDaoJDBC;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.util.Email;
@@ -10,14 +12,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 import java.io.IOException;
 
 
 @WebServlet(urlPatterns = {"/save-order-details"})
 public class OrderDetailsController extends HttpServlet {
 
+    DataSource dataSource = ConnectDB.getInstance();
+    private CartDaoJDBC cartDaoJDBC = CartDaoJDBC.getInstance(dataSource);
+    private Cart cart;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        HttpSession session = req.getSession();
+        cart = cartDaoJDBC.getCartByUser((String) session.getAttribute("userID"));
+
         try{
             resp.sendRedirect(req.getContextPath() + "/payment");
             Intermittent.setOrder(createOrder(req));
@@ -38,7 +50,7 @@ public class OrderDetailsController extends HttpServlet {
                 req.getParameter("inputCityB"), req.getParameter("inputZipB"),
                 req.getParameter("inputAddressB"), req.getParameter("inputCountryS"),
                 req.getParameter("inputCityS"), req.getParameter("inputZipS"),
-                req.getParameter("inputAddressS"), Cart.getProductsInCart());
+                req.getParameter("inputAddressS"), cart.getProductsInCart());
     }
 
 }
