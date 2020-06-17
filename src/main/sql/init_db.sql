@@ -1,10 +1,9 @@
+DROP TABLE IF EXISTS product_in_cart;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS product_category;
 DROP TABLE IF EXISTS suppliers;
+DROP TABLE IF EXISTS cart;
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS carts;
-DROP TABLE IF EXISTS users_cart;
-
 
 CREATE TABLE suppliers
 (
@@ -47,16 +46,17 @@ CREATE TABLE products
     picture             VARCHAR
 );
 
-CREATE TABLE carts
-(
-    id SERIAL PRIMARY KEY,
-    product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
-    quantity int
-);
-
-CREATE TABLE users_cart
+CREATE TABLE cart
 (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-    cart_id INTEGER REFERENCES carts(id) ON DELETE CASCADE
-)
+    ordered BOOLEAN DEFAULT false
+);
+
+CREATE TABLE product_in_cart
+(
+    id SERIAL PRIMARY KEY,
+    cart_id INTEGER REFERENCES cart(id) ON DELETE CASCADE,
+    product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
+    quantity int
+);
