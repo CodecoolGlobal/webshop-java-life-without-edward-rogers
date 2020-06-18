@@ -14,6 +14,11 @@ function apiFetch(parameter) {
         .then(data => data);
 }
 
+function apiFetchToCreateCart() {
+    fetch(`/create-cart`)
+        .then(data => data);
+}
+
 function raiseCartListLength() {
     let cartListPlace = document.querySelector(".cart-size");
 
@@ -25,6 +30,7 @@ function raiseCartListLength() {
     cartListPlace.textContent = placeContent.toString();
     cartListPlace.classList.add("cart-items");
 }
+
 
 function main() {
     let buttons = document.querySelectorAll(".add-button");
