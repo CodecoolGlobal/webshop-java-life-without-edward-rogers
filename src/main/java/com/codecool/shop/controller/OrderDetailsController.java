@@ -6,6 +6,7 @@ import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.util.Email;
 import com.codecool.shop.util.Intermittent;
+import com.codecool.shop.util.Util;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +29,8 @@ public class OrderDetailsController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         HttpSession session = req.getSession();
-        cart = cartDaoJDBC.getCartByUser((String) session.getAttribute("userID"));
+        String userId = (String) session.getAttribute("userID");
+        cart = Util.returnPreciseCart(session,cartDaoJDBC);
 
         try{
             resp.sendRedirect(req.getContextPath() + "/payment");

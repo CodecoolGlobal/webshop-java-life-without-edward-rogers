@@ -5,6 +5,7 @@ import com.codecool.shop.dao.database_connection.CartDaoJDBC;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.util.Email;
 import com.codecool.shop.util.Intermittent;
+import com.codecool.shop.util.Util;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -27,7 +28,7 @@ public class PayController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         HttpSession session = req.getSession();
-        Cart cart = cartDaoJDBC.getCartByUser((String) session.getAttribute("userID"));
+        Cart cart = Util.returnPreciseCart(session,cartDaoJDBC);
 
         if (cart.getCartListSize() > 0 && Intermittent.getOrder() != null) {
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());

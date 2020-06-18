@@ -12,6 +12,7 @@ import com.codecool.shop.dao.database_connection.SupplierDaoJDBC;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.util.Filter;
+import com.codecool.shop.util.Util;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -42,8 +43,8 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        HttpSession session = req.getSession();
-        cart = cartDaoJDBC.getCartByUser((String) session.getAttribute("userID"));
+        HttpSession session = req.getSession(false);
+        cart = Util.returnPreciseCart(session, cartDaoJDBC);
 
         Filter filter = new Filter(productDataStore, productCategoryDataStore, supplierDataStore, req);
 

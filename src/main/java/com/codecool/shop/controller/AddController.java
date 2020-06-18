@@ -6,6 +6,7 @@ import com.codecool.shop.dao.database_connection.CartDaoJDBC;
 import com.codecool.shop.dao.database_connection.ProductDaoJDBC;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
+import com.codecool.shop.util.Util;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,17 +26,15 @@ public class AddController extends HttpServlet {
     private Cart cart;
 
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
 
         HttpSession session = req.getSession();
-        String userID = (String) session.getAttribute("userID");
-        cart = cartDaoJDBC.getCartByUser(userID);
+        cart = Util.returnPreciseCart(session, cartDaoJDBC);
 
-        if ((req.getParameter("quantity")) == null){
+        if ((req.getParameter("quantity")) == null) {
             quantity = null;
-        }else {
+        } else {
             quantity = Integer.parseInt(req.getParameter("quantity"));
         }
 
@@ -44,15 +43,16 @@ public class AddController extends HttpServlet {
         List<Product> products = productDao.getAll();
         handleProductsInCart(quantity, productId, products);
     }
+
     /**
-     *Choose to change quantity (add or remove) or add a new one (or increase the quantity).
+     * Choose to change quantity (add or remove) or add a new one (or increase the quantity).
      *
-     * @param quantity - The amount of the product
+     * @param quantity  - The amount of the product
      * @param productId - The id of the product to change quantity.
-     * @param products - Product in store.
+     * @param products  - Product in store.
      */
     private void handleProductsInCart(Integer quantity, int productId, List<Product> products) {
-        if(quantity != null ){
+        if (quantity != null) {
             changeQuantity(productId, quantity);
         } else {
             addToCartList(productId, products);
@@ -82,35 +82,38 @@ public class AddController extends HttpServlet {
      *
      * @param productId      - ID of added product.
      * @param productsInCart - Products in user's list.
-     * @param product        - Product in store.
      */
     private void raiseQuantityOrAdd(int productId, List<Product> productsInCart, Product product) {
         boolean changeHappened = false;
         for (Product storedProduct : productsInCart) {
             if (storedProduct.getId() == productId) {
+                cartDaoJDBC.editQuantity(productId, cart, storedProduct.getQuantity() + 1);
                 storedProduct.setQuantity(storedProduct.getQuantity() + 1);
                 changeHappened = true;
             }
         }
         if (!changeHappened) {
-            product.setQuantity(product.getQuantity() + 1);
-            productsInCart.add(product);
+            cartDaoJDBC.addProduct(productId, cart);
+//            product.setQuantity(product.getQuantity() + 1);
+//            productsInCart.add(product);
         }
 
     }
 
     /**
      * Change the quantity of the selected product to a custom quantity
+     *
      * @param productId - Id of the selected product
-     * @param quantity - Custom quantity for the change
+     * @param quantity  - Custom quantity for the change
      */
     private void changeQuantity(int productId, int quantity) {
-        ArrayList<Product> cartList = new ArrayList<>();
-        cartList.addAll(cart.getProductsInCart());
+        ArrayList<Product> cartList = new ArrayList<>(cart.getProductsInCart());
         for (Product product : cartList) {
             if (product.getId() == productId) {
+                cartDaoJDBC.editQuantity(productId, cart, quantity);
                 product.setQuantity(quantity);
                 if (quantity == 0) {
+                    cartDaoJDBC.removeProduct(productId, cart);
                     ArrayList<Product> newCartList = cart.getProductsInCart();
                     newCartList.remove(product);
                     cart.setProductsInCart(newCartList);
